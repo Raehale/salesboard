@@ -101,42 +101,42 @@
 
             <h2 class="modal-header">Sign Up!</h2>
 
-            <form class="modal-form">
+            <form class="modal-form" id="sign-up-form">
                 <label for="new-username" class="modal-label">Username</label>
-                <input id="new-username" name="new-username" class="modal-question" />
+                <input id="new-username" name="new-username" class="modal-question" required />
 
                 <label for="new-password-one" class="modal-label">Password</label>
-                <input type="password" id="new-password-one" name="new-password-one" class="modal-question" />
+                <input type="password" id="new-password-one" name="new-password-one" class="modal-question" required />
 
                 <label for="new-password-two" class="modal-label">Confirm Password</label>
-                <input type="password" id="new-password-two" name="new-password-two" class="modal-question" />
+                <input type="password" id="new-password-two" name="new-password-two" class="modal-question" required />
 
                 <hr />
 
                 <label for="current-module" class="modal-label">What Module are you at?</label>
-                <select id="current-module" name="current-module" class="modal-question"></select>
+                <select id="current-module" name="current-module" class="modal-question" required></select>
 
                 <label for="current-video" class="modal-label">What video are you on?</label>
-                <select id="current-video" name="current-video" class="modal-question"></select>
+                <select id="current-video" name="current-video" class="modal-question" required></select>
 
                 <label for="current-project" class="modal-label">What project are you on?</label>
-                <select id="current-project" name="current-project" class="modal-question"></select>
+                <select id="current-project" name="current-project" class="modal-question" required></select>
 
-                <button type="button" id="create-user" class="btn submit-btn">Create Account</button>
+                <button type="button" id="create-user" class="btn submit-btn" disabled>Create Account</button>
             </form>
         </modal>
 
         <modal id="sign-in-modal" class="sign-in-modal modal">
             <i class="fa-solid fa-x x-out" id="x-out-modal"></i>
             <h2 class="modal-header">Sign In!</h2>
-            <form class="modal-form">
+            <form class="modal-form" id="sign-in-form">
                 <label for="login-username" class="modal-label">Username</label>
-                <input id="login-username" name="login-username" class="modal-question" />
+                <input id="login-username" name="login-username" class="modal-question" required />
 
                 <label for="login-password" class="modal-label">Password</label>
-                <input type="password" id="login-password" name="login-password" class="modal-question" />
+                <input type="password" id="login-password" name="login-password" class="modal-question" required />
 
-                <button type="button" id="login-btn" class="btn submit-btn">Login</button>
+                <button type="button" id="login-btn" class="btn submit-btn" disabled>Login</button>
             </form>
         </modal>
 

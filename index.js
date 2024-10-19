@@ -55,6 +55,8 @@ const buttonsArr = document.querySelector("#container").querySelectorAll(".btn")
 const createUserBtn = document.getElementById("create-user")
 const loginBtn = document.getElementById("login-btn")
 const logoutBtn = document.getElementById("log-out-btn")
+const signUpForm = document.getElementById("sign-up-form")
+const signInForm = document.getElementById("sign-in-form")
 
 signUpBtn.addEventListener("click", () => {
     displayGenericModal("sign-up")
@@ -102,6 +104,16 @@ logoutBtn.addEventListener("click", () => {
     logoutBtnEl.classList.add("hidden")
 
     loggedIn = false
+})
+
+signUpForm.addEventListener("input", () => {
+    const isValid = signUpForm.checkValidity()
+    createUserBtn.disabled = !isValid
+})
+
+signInForm.addEventListener("input", () => {
+    const isValid = signUpForm.checkValidity()
+    createUserBtn.disabled = !isValid
 })
 
 function displayGenericModal(type) {
