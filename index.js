@@ -66,14 +66,14 @@ signInBtn.addEventListener("click", () => {
 xOutModalBtnsArr.forEach(button => {
     button.addEventListener("click", (event) => {
         hideModal(event.target.parentElement)
-        signUpBtn.disabled = false;
-        signInBtn.disabled = false;
+        enableLoginBtns()
     })
 })
 
 createUserBtn.addEventListener("click", (event) => {
     enableBtns()
     hideModal(event.target.parentElement.parentElement)
+    storeLoginInfo(document.getElementById("new-username").value, document.getElementById("new-password-one").value)
 
     loginBtnsEl.classList.add("hidden")
     logoutBtnEl.classList.remove("hidden")
@@ -82,15 +82,16 @@ createUserBtn.addEventListener("click", (event) => {
 loginBtn.addEventListener("click", (event) => {
     enableBtns()
     hideModal(event.target.parentElement.parentElement)
+    storeLoginInfo(document.getElementById("login-username").value, document.getElementById("login-password").value)
 
+    loginBtnsEl.classList.add("hidden")
     logoutBtnEl.classList.remove("hidden")
 })
 
 logoutBtn.addEventListener("click", () => {
     disableBtns()
+    enableLoginBtns()
 
-    signUpBtn.disabled = false;
-    signInBtn.disabled = false;
     loginBtnsEl.classList.remove("hidden")
     logoutBtnEl.classList.add("hidden")
 })
@@ -116,4 +117,15 @@ function disableBtns() {
     buttonsArr.forEach(button => {
         button.disabled = true;
     });
+}
+
+function enableLoginBtns() {
+    signUpBtn.disabled = false;
+    signInBtn.disabled = false;
+}
+
+function storeLoginInfo(username, password) {
+    console.log(username)
+    localStorage.setItem('username', `${username}`)
+    localStorage.setItem('password', `${password}`)
 }
