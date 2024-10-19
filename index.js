@@ -1,4 +1,5 @@
 // temp data, will be added to local storage
+let loggedIn = false
 const watchedVideos = []
 let watchedToday = 0
 let totalWatched = 0
@@ -77,6 +78,8 @@ createUserBtn.addEventListener("click", (event) => {
 
     loginBtnsEl.classList.add("hidden")
     logoutBtnEl.classList.remove("hidden")
+
+    loggedIn = true
 })
 
 loginBtn.addEventListener("click", (event) => {
@@ -86,14 +89,19 @@ loginBtn.addEventListener("click", (event) => {
 
     loginBtnsEl.classList.add("hidden")
     logoutBtnEl.classList.remove("hidden")
+
+    loggedIn = true
 })
 
 logoutBtn.addEventListener("click", () => {
     disableBtns()
     enableLoginBtns()
+    clearLoginInfo()
 
     loginBtnsEl.classList.remove("hidden")
     logoutBtnEl.classList.add("hidden")
+
+    loggedIn = false
 })
 
 function displayGenericModal(type) {
@@ -125,7 +133,10 @@ function enableLoginBtns() {
 }
 
 function storeLoginInfo(username, password) {
-    console.log(username)
     localStorage.setItem('username', `${username}`)
     localStorage.setItem('password', `${password}`)
+}
+
+function clearLoginInfo() {
+    localStorage.clear()
 }
