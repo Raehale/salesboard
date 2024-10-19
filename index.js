@@ -1,3 +1,5 @@
+import { modulesObj } from "./videoData.js"
+
 // temp data, will be added to local storage
 let loggedIn = false
 const watchedVideos = []
@@ -57,6 +59,7 @@ const loginBtn = document.getElementById("login-btn")
 const logoutBtn = document.getElementById("log-out-btn")
 const signUpForm = document.getElementById("sign-up-form")
 const signInForm = document.getElementById("sign-in-form")
+let isValid = false
 
 signUpBtn.addEventListener("click", () => {
     displayGenericModal("sign-up")
@@ -107,13 +110,25 @@ logoutBtn.addEventListener("click", () => {
 })
 
 signUpForm.addEventListener("input", () => {
-    const isValid = signUpForm.checkValidity()
+    signUpForm.querySelectorAll(".modal-question").forEach(question => {
+        if (question.value !== "") {
+            isValid = true
+        } else {
+            isValid = false
+        }
+    });
     createUserBtn.disabled = !isValid
 })
 
 signInForm.addEventListener("input", () => {
-    const isValid = signUpForm.checkValidity()
-    createUserBtn.disabled = !isValid
+    signInForm.querySelectorAll(".modal-question").forEach(question => {
+        if (question.value !== "") {
+            isValid = true
+        } else {
+            isValid = false
+        }
+    });
+    loginBtn.disabled = !isValid
 })
 
 function displayGenericModal(type) {
@@ -151,4 +166,66 @@ function storeLoginInfo(username, password) {
 
 function clearLoginInfo() {
     localStorage.clear()
+}
+
+const currentModuleSelect = document.getElementById("current-module")
+const currentSectionSelect = document.getElementById("current-section")
+const currentVideoSelect = document.getElementById("current-video")
+
+createModuleDropdown()
+createSectionDropdown()
+createVideoDropdown()
+
+currentModuleSelect.addEventListener("change", () => {
+    createSectionDropdown()
+    createVideoDropdown()
+})
+
+currentSectionSelect.addEventListener("change", () => {
+    createVideoDropdown()
+})
+
+function createModuleDropdown() {
+    currentModuleSelect.innerHTML = ""
+    for (const module of Object.entries(modulesObj)) {
+        currentModuleSelect.innerHTML += `
+                <option value="${module[0]}">
+                    ${module[0]}
+                </option>
+            `
+    }
+}
+
+function createSectionDropdown() {
+    currentSectionSelect.innerHTML = ""
+    for (const module of Object.entries(modulesObj)) {
+        if (module[0] == currentModuleSelect.value) {
+            for (const section of Object.entries(module[1])) {
+                currentSectionSelect.innerHTML += `
+                    <option value="${section[0]}">
+                        ${section[0]}
+                    </option>
+                `
+            }
+        }
+    }
+}
+
+function createVideoDropdown() {
+    currentVideoSelect.innerHTML = ""
+    for (const module of Object.entries(modulesObj)) {
+        if (module[0] == currentModuleSelect.value) {
+            for (const section of Object.entries(module[1])) {
+                if (section[0] == currentSectionSelect.value) {
+                    for (const video of Object.entries(section[1])) {
+                        currentVideoSelect.innerHTML += `
+                            <option value="${video[0]}">
+                                ${video[0]}
+                            </option>
+                        `
+                    }
+                }
+            }
+        }
+    }
 }

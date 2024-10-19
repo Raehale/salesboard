@@ -22,7 +22,7 @@
                         <button id="sign-in-btn" class="btn">Sign In</button>
                     </div>
                 </section>
-                <section id="logout-btn" class="hidden">
+                <section id="logout-btn" class="hidden login-btns">
                     <button id="log-out-btn" class="btn">Log Out</button>
                 </section>
             </header>
@@ -116,6 +116,9 @@
                 <label for="current-module" class="modal-label">What Module are you at?</label>
                 <select id="current-module" name="current-module" class="modal-question" required></select>
 
+                <label for="current-section" class="modal-label">What section are you on?</label>
+                <select id="current-section" name="current-section" class="modal-question" required></select>
+
                 <label for="current-video" class="modal-label">What video are you on?</label>
                 <select id="current-video" name="current-video" class="modal-question" required></select>
 
@@ -143,6 +146,6 @@
         <modal id="task-completion-notification" class="task-completion-notification">
         </modal>
 
-        <script src="index.js"></script>
+        <script src="index.js" type="module"></script>
     </body>
 </html>

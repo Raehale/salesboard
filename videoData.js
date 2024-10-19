@@ -1,4 +1,4 @@
-export const modulesArr = {
+export const modulesObj = {
     "Welcome to the career path": {
         "Getting started": {
             "Welcome to the Frontend Path": "3.04",
