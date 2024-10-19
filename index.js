@@ -66,12 +66,14 @@ xOutModalBtnsArr.forEach(button => {
     })
 })
 
-createUserBtn.addEventListener("click", () => {
+createUserBtn.addEventListener("click", (event) => {
     enableBtns()
+    hideModal(event.target.parentElement.parentElement)
 })
 
-loginBtn.addEventListener("click", () => {
+loginBtn.addEventListener("click", (event) => {
     enableBtns()
+    hideModal(event.target.parentElement.parentElement)
 })
 
 function displayGenericModal(type) {
@@ -86,10 +88,6 @@ function displayGenericModal(type) {
 
 function hideModal(selectedModal) {
     selectedModal.style.display = "none"
-
-    buttonsArr.forEach(button => {
-        button.disabled = false;
-    });
 }
 
 function enableBtns() {
