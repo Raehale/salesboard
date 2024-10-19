@@ -74,6 +74,7 @@ xOutModalBtnsArr.forEach(button => {
 createUserBtn.addEventListener("click", (event) => {
     enableBtns()
     hideModal(event.target.parentElement.parentElement)
+
     loginBtnsEl.classList.add("hidden")
     logoutBtnEl.classList.remove("hidden")
 })
@@ -81,11 +82,13 @@ createUserBtn.addEventListener("click", (event) => {
 loginBtn.addEventListener("click", (event) => {
     enableBtns()
     hideModal(event.target.parentElement.parentElement)
+
     logoutBtnEl.classList.remove("hidden")
 })
 
 logoutBtn.addEventListener("click", () => {
     disableBtns()
+
     signUpBtn.disabled = false;
     signInBtn.disabled = false;
     loginBtnsEl.classList.remove("hidden")
@@ -94,10 +97,9 @@ logoutBtn.addEventListener("click", () => {
 
 function displayGenericModal(type) {
     const modal = document.getElementById(`${type}-modal`)
+    modal.style.display = "grid"
 
     disableBtns()
-
-    modal.style.display = "grid"
 }
 
 function hideModal(selectedModal) {
