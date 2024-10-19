@@ -48,7 +48,7 @@ function taskCompletionNotif(task, total) {
 const signUpBtn = document.getElementById("sign-up-btn")
 const signInBtn = document.getElementById("sign-in-btn")
 const xOutModalBtnsArr = document.querySelectorAll(".x-out")
-const buttonsArr = document.querySelector("main").querySelectorAll(".btn")
+const buttonsArr = document.querySelector("#container").querySelectorAll(".btn")
 const createUserBtn = document.getElementById("create-user")
 const loginBtn = document.getElementById("login-btn")
 
@@ -63,6 +63,8 @@ signInBtn.addEventListener("click", () => {
 xOutModalBtnsArr.forEach(button => {
     button.addEventListener("click", (event) => {
         hideModal(event.target.parentElement)
+        signUpBtn.disabled = false;
+        signInBtn.disabled = false;
     })
 })
 

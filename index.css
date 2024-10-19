@@ -71,6 +71,11 @@ h2 {
     border: none;
 }
 
+/*HIDE BTN*/
+.hidden {
+    display: none;
+}
+
 /***HR***/
 hr {
     width: 80%;
