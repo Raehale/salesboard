@@ -49,6 +49,8 @@ const signUpBtn = document.getElementById("sign-up-btn")
 const signInBtn = document.getElementById("sign-in-btn")
 const xOutModalBtnsArr = document.querySelectorAll(".x-out")
 const buttonsArr = document.querySelector("main").querySelectorAll(".btn")
+const createUserBtn = document.getElementById("create-user")
+const loginBtn = document.getElementById("login-btn")
 
 signUpBtn.addEventListener("click", () => {
     displayGenericModal("sign-up")
@@ -64,6 +66,14 @@ xOutModalBtnsArr.forEach(button => {
     })
 })
 
+createUserBtn.addEventListener("click", () => {
+    enableBtns()
+})
+
+loginBtn.addEventListener("click", () => {
+    enableBtns()
+})
+
 function displayGenericModal(type) {
     const modal = document.getElementById(`${type}-modal`)
 
@@ -77,6 +87,12 @@ function displayGenericModal(type) {
 function hideModal(selectedModal) {
     selectedModal.style.display = "none"
 
+    buttonsArr.forEach(button => {
+        button.disabled = false;
+    });
+}
+
+function enableBtns() {
     buttonsArr.forEach(button => {
         button.disabled = false;
     });

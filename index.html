@@ -14,9 +14,7 @@
         <div class="container">
             <header>
                 <h1>Progress Tracker</h1>
-            </header>
-            <main>
-                <section class="inline-btns">
+                <section class="inline-btns login-btns">
                     <div class="div-fifty">
                         <button id="sign-up-btn" class="btn">Sign Up</button>
                     </div>
@@ -24,6 +22,8 @@
                         <button id="sign-in-btn" class="btn">Sign In</button>
                     </div>
                 </section>
+            </header>
+            <main>
                 <section class="display left-border">
                     <h2>Today's progress</h2>
                     <div class="tracker">
@@ -49,15 +49,17 @@
                     <div class="timer">
                         <i class="fa-regular fa-clock"></i>
                         <span>00:00:00</spans>
-                        <i class="fa-solid fa-play select-icon"></i>
+                        <button class="select-icon no-btn-bg" disabled>
+                            <i class="fa-solid fa-play"></i>
+                        </button>
                     </div> 
                 
                     <div class="inline-btns">
                         <div class="div-fifty">
-                            <button id="watched-video-btn" class="btn">Video Watched</button>
+                            <button id="watched-video-btn" class="btn" disabled>Video Watched</button>
                         </div>
                         <div class="div-fifty">
-                            <button id="project-complete-btn" class="btn">Project Complete</button>
+                            <button id="project-complete-btn" class="btn" disabled>Project Complete</button>
                         </div>
                     </div>
                 
@@ -93,7 +95,9 @@
 
         <modal id="sign-up-modal" class="sign-up-modal modal">
             <i class="fa-solid fa-x x-out" id="x-out-modal"></i>
-            <h1 class="modal-header">Sign Up!</h1>
+
+            <h2 class="modal-header">Sign Up!</h2>
+
             <form class="modal-form">
                 <label for="new-username" class="modal-label">Username</label>
                 <input id="new-username" name="new-username" class="modal-question" />
@@ -115,13 +119,13 @@
                 <label for="current-project" class="modal-label">What project are you on?</label>
                 <select id="current-project" name="current-project" class="modal-question"></select>
 
-                <button type="submit" id="create-user" class="btn submit-btn">Create Account</button>
+                <button type="button" id="create-user" class="btn submit-btn">Create Account</button>
             </form>
         </modal>
 
         <modal id="sign-in-modal" class="sign-in-modal modal">
             <i class="fa-solid fa-x x-out" id="x-out-modal"></i>
-            <h1 class="modal-header">Sign In!</h1>
+            <h2 class="modal-header">Sign In!</h2>
             <form class="modal-form">
                 <label for="login-username" class="modal-label">Username</label>
                 <input id="login-username" name="login-username" class="modal-question" />
@@ -129,7 +133,7 @@
                 <label for="login-password" class="modal-label">Password</label>
                 <input type="password" id="login-password" name="login-password" class="modal-question" />
 
-                <button type="submit" id="sign-in-btn" class="btn submit-btn">Login</button>
+                <button type="button" id="login-btn" class="btn submit-btn">Login</button>
             </form>
         </modal>
 

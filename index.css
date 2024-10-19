@@ -66,6 +66,11 @@ h2 {
     }
 }
 
+.no-btn-bg {
+    background-color: transparent;
+    border: none;
+}
+
 /***HR***/
 hr {
     width: 80%;
@@ -114,6 +119,12 @@ hr {
         color: #FFDF86;
 
         cursor: pointer;
+    }
+
+    &:disabled {
+        color: white;
+
+        cursor: not-allowed;
     }
 }
 
@@ -292,6 +303,14 @@ select.modal-question {
         border-radius: 10px;
 
         z-index: -1;
+    }
+
+    /**BUTTONS**/
+    .login-btns {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        width: 20%;
     }
 
     /**MAIN**/
