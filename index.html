@@ -11,12 +11,19 @@
         <link rel="stylesheet" href="index.css">
     </head>
     <body>
-      
         <div class="container">
             <header>
                 <h1>Progress Tracker</h1>
             </header>
             <main>
+                <section class="inline-btns">
+                    <div class="div-fifty">
+                        <button id="sign-up-btn" class="btn">Sign Up</button>
+                    </div>
+                    <div class="div-fifty">
+                        <button id="sign-in-btn" class="btn">Sign In</button>
+                    </div>
+                </section>
                 <section class="display left-border">
                     <h2>Today's progress</h2>
                     <div class="tracker">
@@ -45,13 +52,13 @@
                         <i class="fa-solid fa-play select-icon"></i>
                     </div> 
                 
-                    <div class="reward-btns">
-                            <div class="div-fifty">
-                                <button id="watched-video-btn">Video Watched</button>
-                            </div>
-                            <div class="div-fifty">
-                                <button id="project-complete-btn">Project Complete</button>
-                            </div>
+                    <div class="inline-btns">
+                        <div class="div-fifty">
+                            <button id="watched-video-btn" class="btn">Video Watched</button>
+                        </div>
+                        <div class="div-fifty">
+                            <button id="project-complete-btn" class="btn">Project Complete</button>
+                        </div>
                     </div>
                 
                 </section>
@@ -84,30 +91,45 @@
             </main>
         </div>
 
-        <modal id="sign-up-modal" class="sign-up-modal">
-            <h1>Sign Up!</h1>
-            <form>
-                <label for="new-username">Username</label>
-                <input id="new-username" name="new-username" />
+        <modal id="sign-up-modal" class="sign-up-modal modal">
+            <i class="fa-solid fa-x x-out" id="x-out-modal"></i>
+            <h1 class="modal-header">Sign Up!</h1>
+            <form class="modal-form">
+                <label for="new-username" class="modal-label">Username</label>
+                <input id="new-username" name="new-username" class="modal-question" />
 
-                <label for="new-password-one">Password</label>
-                <input type="password" id="new-password-one" name="new-password-one" />
+                <label for="new-password-one" class="modal-label">Password</label>
+                <input type="password" id="new-password-one" name="new-password-one" class="modal-question" />
 
-                <label for="new-password-two">Confirm Password</label>
-                <input type="password" id="new-password-two" name="new-password-two" />
+                <label for="new-password-two" class="modal-label">Confirm Password</label>
+                <input type="password" id="new-password-two" name="new-password-two" class="modal-question" />
 
                 <hr />
 
-                <label for="current-module">What Module are you at?</label>
-                <select id="current-module" name="current-module"></select>
+                <label for="current-module" class="modal-label">What Module are you at?</label>
+                <select id="current-module" name="current-module" class="modal-question"></select>
 
-                <label for="current-video">What video are you on?</label>
-                <select id="current-video" name="current-video"></select>
+                <label for="current-video" class="modal-label">What video are you on?</label>
+                <select id="current-video" name="current-video" class="modal-question"></select>
 
-                <label for="current-project">What project are you on?</label>
-                <select id="current-project" name="current-project"></select>
+                <label for="current-project" class="modal-label">What project are you on?</label>
+                <select id="current-project" name="current-project" class="modal-question"></select>
 
-                <button type="submit" id="create-user">Create Account</button>
+                <button type="submit" id="create-user" class="btn submit-btn">Create Account</button>
+            </form>
+        </modal>
+
+        <modal id="sign-in-modal" class="sign-in-modal modal">
+            <i class="fa-solid fa-x x-out" id="x-out-modal"></i>
+            <h1 class="modal-header">Sign In!</h1>
+            <form class="modal-form">
+                <label for="login-username" class="modal-label">Username</label>
+                <input id="login-username" name="login-username" class="modal-question" />
+
+                <label for="login-password" class="modal-label">Password</label>
+                <input type="password" id="login-password" name="login-password" class="modal-question" />
+
+                <button type="submit" id="sign-in-btn" class="btn submit-btn">Login</button>
             </form>
         </modal>
 

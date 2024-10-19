@@ -16,14 +16,14 @@ watchedVideoBtnEl.addEventListener("click", function(){
     taskCompletionNotif("video", totalWatched)
     document.getElementById("watched-today").innerText = watchedToday
     document.getElementById("videos-watched").innerText = totalWatched
-    overallProgLabelEl.innerText = `Overall Progress - ${totalWatched+totalProjects}`
+    overallProgLabelEl.innerText = `Overall Progress - ${totalWatched + totalProjects}`
     document.getElementById("overall-progress").innerText += "⏩"
 })
 
 projectCompleteBtnEl.addEventListener("click", function(){
     totalProjects++
     document.getElementById("total-projects").innerText = totalProjects
-    overallProgLabelEl.innerText = `Overall Progress - ${totalWatched+totalProjects}`
+    overallProgLabelEl.innerText = `Overall Progress - ${totalWatched + totalProjects}`
     document.getElementById("overall-progress").innerText += "🏅"
     taskCompletionNotif("project", totalProjects)
 })
@@ -42,4 +42,42 @@ function taskCompletionNotif(task, total) {
     setTimeout(() => {
         taskCompletionNotifModal.style.display = "none"
     }, 5000)
+}
+
+//generic modal
+const signUpBtn = document.getElementById("sign-up-btn")
+const signInBtn = document.getElementById("sign-in-btn")
+const xOutModalBtnsArr = document.querySelectorAll(".x-out")
+const buttonsArr = document.querySelector("main").querySelectorAll(".btn")
+
+signUpBtn.addEventListener("click", () => {
+    displayGenericModal("sign-up")
+})
+
+signInBtn.addEventListener("click", () => {
+    displayGenericModal("sign-in")
+})
+
+xOutModalBtnsArr.forEach(button => {
+    button.addEventListener("click", (event) => {
+        hideModal(event.target.parentElement)
+    })
+})
+
+function displayGenericModal(type) {
+    const modal = document.getElementById(`${type}-modal`)
+
+    buttonsArr.forEach(button => {
+        button.disabled = true;
+    });
+
+    modal.style.display = "grid"
+}
+
+function hideModal(selectedModal) {
+    selectedModal.style.display = "none"
+
+    buttonsArr.forEach(button => {
+        button.disabled = false;
+    });
 }
