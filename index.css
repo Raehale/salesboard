@@ -71,11 +71,6 @@ h2 {
     border: none;
 }
 
-/*HIDE BTN*/
-.hidden {
-    display: none;
-}
-
 /***HR***/
 hr {
     width: 80%;
@@ -401,4 +396,9 @@ select.modal-question {
         margin-top: 2rem;
         gap: 4rem;
     }
+}
+
+/*HIDE ELEMENT*/
+.hidden {
+    display: none;
 }

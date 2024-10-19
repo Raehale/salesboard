@@ -45,12 +45,15 @@ function taskCompletionNotif(task, total) {
 }
 
 //generic modal
+const loginBtnsEl = document.getElementById("login-btns")
+const logoutBtnEl = document.getElementById("logout-btn")
 const signUpBtn = document.getElementById("sign-up-btn")
 const signInBtn = document.getElementById("sign-in-btn")
 const xOutModalBtnsArr = document.querySelectorAll(".x-out")
 const buttonsArr = document.querySelector("#container").querySelectorAll(".btn")
 const createUserBtn = document.getElementById("create-user")
 const loginBtn = document.getElementById("login-btn")
+const logoutBtn = document.getElementById("log-out-btn")
 
 signUpBtn.addEventListener("click", () => {
     displayGenericModal("sign-up")
@@ -71,19 +74,28 @@ xOutModalBtnsArr.forEach(button => {
 createUserBtn.addEventListener("click", (event) => {
     enableBtns()
     hideModal(event.target.parentElement.parentElement)
+    loginBtnsEl.classList.add("hidden")
+    logoutBtnEl.classList.remove("hidden")
 })
 
 loginBtn.addEventListener("click", (event) => {
     enableBtns()
     hideModal(event.target.parentElement.parentElement)
+    logoutBtnEl.classList.remove("hidden")
+})
+
+logoutBtn.addEventListener("click", () => {
+    disableBtns()
+    signUpBtn.disabled = false;
+    signInBtn.disabled = false;
+    loginBtnsEl.classList.remove("hidden")
+    logoutBtnEl.classList.add("hidden")
 })
 
 function displayGenericModal(type) {
     const modal = document.getElementById(`${type}-modal`)
 
-    buttonsArr.forEach(button => {
-        button.disabled = true;
-    });
+    disableBtns()
 
     modal.style.display = "grid"
 }
@@ -95,5 +107,11 @@ function hideModal(selectedModal) {
 function enableBtns() {
     buttonsArr.forEach(button => {
         button.disabled = false;
+    });
+}
+
+function disableBtns() {
+    buttonsArr.forEach(button => {
+        button.disabled = true;
     });
 }
