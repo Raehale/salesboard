@@ -1,18 +1,16 @@
 import { modulesObj } from "./videoData.js"
 import { projectsObj } from "./projectData.js"
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"
-import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js"
 
 const appSettings = {
     databaseURL: "https://progress-board-default-rtdb.firebaseio.com/"
 }
-
 const app = initializeApp(appSettings)
 const database = getDatabase(app)
 
 const progressBoardInDB = ref(database, "progressBoard")
-push(progressBoardInDB, "test")
 
 
 // temp data, will be added to local storage
@@ -95,6 +93,13 @@ createUserBtn.addEventListener("click", (event) => {
     enableBtns()
     hideModal(event.target.parentElement.parentElement)
     storeLoginInfo(document.getElementById("new-username").value, document.getElementById("new-password-one").value)
+    addSignupInfoToDB(document.getElementById("new-username").value, 
+            document.getElementById("new-password-one").value,
+            document.getElementById("current-module").value,
+            document.getElementById("current-section").value,
+            document.getElementById("current-video").value,
+            document.getElementById("current-project").value,
+        )
 
     loginBtnsEl.classList.add("hidden")
     logoutBtnEl.classList.remove("hidden")
@@ -261,4 +266,16 @@ function createProjectsDropdown() {
                 </optgroup>
             `
     }
+}
+
+function addSignupInfoToDB(username, password, module, section, video, project) {
+    const userDataObj = {
+        "username": username,
+        "password": password,
+        "module": module,
+        "section": section,
+        "video": video,
+        "project": project,
+    }
+    push(progressBoardInDB, userDataObj)
 }
