@@ -42,7 +42,7 @@ export const projectsObj = {
     "Module 11": [
         "React Component Library",
     ],
-    "AI ENgineer Path": [
+    "AI Engineer Path": [
         "Pollyglot",
         "PopChoice",
         "AI Travel Agent",

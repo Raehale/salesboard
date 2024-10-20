@@ -1,4 +1,6 @@
 import { modulesObj } from "./videoData.js"
+import { projectsObj } from "./projectData.js"
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"
 import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
 
@@ -240,5 +242,23 @@ function createVideoDropdown() {
                 }
             }
         }
+    }
+}
+
+const currentProjectsSelect = document.getElementById("current-project")
+
+createProjectsDropdown()
+
+function createProjectsDropdown() {
+    currentProjectsSelect.innerHTML = ""
+    for (const group of Object.entries(projectsObj)) {
+        const groupOfProjects = group[1].map(project => {
+            return `<option value="${project}">${project}</option>`
+        })
+        currentProjectsSelect.innerHTML += `
+                <optgroup label="${group[0]}">
+                    ${groupOfProjects}
+                </optgroup>
+            `
     }
 }
