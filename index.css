@@ -9,7 +9,7 @@ body {
 }
 
 
-.conatiner {
+.container {
     color:white;
     font-family: Poppins;
 
@@ -225,7 +225,7 @@ h2 {
         margin: 0 1rem;
     }
 
-    .conatiner {
+    .container {
         width: 90%;
 
         margin: 0 5%;

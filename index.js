@@ -1,21 +1,30 @@
 // temp data, will be added to local storage
 const watchedVideos = []
+let watchedToday = 0
 let totalWatched = 0
+let totalProjects = 0
 
 const watchedVideoBtnEl = document.getElementById("watched-video-btn")
+const projectCompleteBtnEl = document.getElementById("project-complete-btn")
+const totalProjectsEl = document.getElementById("total-projects")
+const overallProgLabelEl = document.getElementById("overall-prog-label")
+
 
 watchedVideoBtnEl.addEventListener("click", function(){
+    watchedToday++
     totalWatched++
     taskCompletionNotif("video", totalWatched)
-    document.getElementById("videos-watched-el").innerText = totalWatched
+    document.getElementById("watched-today").innerText = watchedToday
+    document.getElementById("videos-watched").innerText = totalWatched
+    overallProgLabelEl.innerText = `Overall Progress - ${totalWatched+totalProjects}`
+    document.getElementById("overall-progress").innerText += "⏩"
 })
 
-//project completed
-let totalProjects = 0
-const finishedProjectBtnEl = document.getElementById("project-complete-btn")
-
-finishedProjectBtnEl.addEventListener("click", function(){
+projectCompleteBtnEl.addEventListener("click", function(){
     totalProjects++
+    document.getElementById("total-projects").innerText = totalProjects
+    overallProgLabelEl.innerText = `Overall Progress - ${totalWatched+totalProjects}`
+    document.getElementById("overall-progress").innerText += "🏅"
     taskCompletionNotif("project", totalProjects)
 })
 

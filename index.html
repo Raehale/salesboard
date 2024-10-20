@@ -12,13 +12,13 @@
     </head>
     <body>
       
-        <div class="conatiner">
+        <div class="container">
             <header>
                 <h1>Progress Tracker</h1>
             </header>
             <main>
                 <section class="display left-border">
-                    <h2>This weeks progress</h2>
+                    <h2>Today's progress</h2>
                     <div class="tracker">
                         <div>
                             <h3 class="bubble-lable">Screen ⏱</h3>
@@ -27,12 +27,12 @@
 
                         <div>
                             <h3 class="bubble-lable">Videos</h3>
-                            <div class="tracker-bubble"></div>
+                            <p class="tracker-bubble" id="watched-today">0</p>
                         </div>
 
                         <div>
                             <h3 class="bubble-lable">Projects</h3>
-                            <div class="tracker-bubble"></div>
+                            <p class="tracker-bubble" id="total-projects">0</p>
                         </div>
                     </div>
                 </section>
@@ -58,22 +58,22 @@
 
 
                 <section class="total-progress left-border">
-                    <h2>Progress</h2>
+                    <h2>Total Progress</h2>
                     <div class="progress-item">
-                        <h3 class="progress-label">Overall Progress - 12</h3>
-                        <div class="progress-display"></div>
+                        <h3 class="progress-label" id="overall-prog-label">Overall Progress - 0</h3>
+                        <p class="progress-display" id="overall-progress"></p>
                     </div>
 
                     <div class="progress-item">
-                        <h3 class="progress-label">Live Achivements - 2</h3>
-                        <div class="progress-display"></div>
+                        <h3 class="progress-label">Live Achievements - 0</h3>
+                        <p class="progress-display" id="live-achievements"></p>
                     </div>
                 </section>
 
                 <section class="watched">
                     <div class="watched-item">
                         <h3 class="watched-label">Videos Watched</h3>
-                        <p class="watched-display" id="videos-watched-el">0</p>
+                        <p class="watched-display" id="videos-watched">0</p>
                     </div>
 
                     <div class="watched-item">
