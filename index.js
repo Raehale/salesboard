@@ -1,16 +1,16 @@
 import { modulesObj } from "./videoData.js"
-// import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"
-// import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"
+import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
 
-// const appSettings = {
-//     databaseURL: "https://progress-board-default-rtdb.firebaseio.com/"
-// }
+const appSettings = {
+    databaseURL: "https://progress-board-default-rtdb.firebaseio.com/"
+}
 
-// const app = initializeApp(appSettings)
-// const database = getDatabase(app)
+const app = initializeApp(appSettings)
+const database = getDatabase(app)
 
-// const progressBoardInDB = ref(database, "progressBoard")
-// push(progressBoardInDB, "test")
+const progressBoardInDB = ref(database, "progressBoard")
+push(progressBoardInDB, "test")
 
 
 // temp data, will be added to local storage
