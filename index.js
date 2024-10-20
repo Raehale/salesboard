@@ -92,9 +92,8 @@ xOutModalBtnsArr.forEach(button => {
 createUserBtn.addEventListener("click", (event) => {
     enableBtns()
     hideModal(event.target.parentElement.parentElement)
-    storeLoginInfo(document.getElementById("new-username").value, document.getElementById("new-password-one").value)
+    storeLoginInfo(document.getElementById("new-username").value)
     addSignupInfoToDB(document.getElementById("new-username").value, 
-            document.getElementById("new-password-one").value,
             document.getElementById("current-module").value,
             document.getElementById("current-section").value,
             document.getElementById("current-video").value,
@@ -110,7 +109,8 @@ createUserBtn.addEventListener("click", (event) => {
 loginBtn.addEventListener("click", (event) => {
     enableBtns()
     hideModal(event.target.parentElement.parentElement)
-    storeLoginInfo(document.getElementById("login-username").value, document.getElementById("login-password").value)
+    storeLoginInfo(document.getElementById("login-username").value)
+    getUserData(document.getElementById("login-username").value)
 
     loginBtnsEl.classList.add("hidden")
     logoutBtnEl.classList.remove("hidden")
@@ -181,7 +181,6 @@ function enableLoginBtns() {
 
 function storeLoginInfo(username, password) {
     localStorage.setItem('username', `${username}`)
-    localStorage.setItem('password', `${password}`)
 }
 
 function clearLoginInfo() {
@@ -268,14 +267,23 @@ function createProjectsDropdown() {
     }
 }
 
-function addSignupInfoToDB(username, password, module, section, video, project) {
+function addSignupInfoToDB(username, module, section, video, project) {
     const userDataObj = {
         "username": username,
-        "password": password,
         "module": module,
         "section": section,
         "video": video,
         "project": project,
     }
     push(progressBoardInDB, userDataObj)
+}
+
+function getUserData(username) {
+    onValue(progressBoardInDB, function(snapshot) {
+        if (snapshot.exists()) {
+            if (Object.values(snapshot.val())[0].username === username) {
+                displayProgress(Object.values(snapshot.val())[0])
+            }
+        }
+    })
 }
