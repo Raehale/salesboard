@@ -232,9 +232,13 @@ hr {
 
     text-align: left;
 
-    width: 400px;
+    width: 80%;
 
     margin: 0 auto;
+}
+
+.modal-item {
+    display: grid;
 }
 
 .modal-question {
@@ -334,7 +338,7 @@ select.modal-question {
         margin: 0 5%;
     }
 
-    /*HEADINGS*/
+    /**HEADINGS**/
     h2 {
         position: relative;
 
@@ -357,7 +361,7 @@ select.modal-question {
         margin-left: 0.5em;
     }
 
-    /*WEEKLY PROGRESS*/
+    /**WEEKLY PROGRESS**/
     .display {
         width: 50%;
 
@@ -369,7 +373,7 @@ select.modal-question {
         height: 40px;
     }
 
-    /*ACTIONS BOX*/
+    /**ACTIONS BOX**/
     .actions {
         position: absolute;
         top: 0;
@@ -381,7 +385,7 @@ select.modal-question {
         border-radius: 20px;
     }
 
-    /*PROGRESS TOTALS*/
+    /**PROGRESS TOTALS**/
     .total-progress {
         width: 100%;
     }
@@ -395,6 +399,36 @@ select.modal-question {
 
         margin-top: 2rem;
         gap: 4rem;
+    }
+
+    /**MODAL**/
+    .modal {
+        max-width: 1200px;
+        min-width: 1000px;
+    }
+    .modal-form {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+
+        width: 100%;
+    }
+
+    .modal-header {
+        text-align: center;
+    }
+
+    .modal-item {
+        width: 40%;
+    }
+
+    .whole-line-item {
+        margin: 0 30%;
+    }
+
+    .submit-btn {
+        height: auto;
+        width: 40%;
     }
 }
 
