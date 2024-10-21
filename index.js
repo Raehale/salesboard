@@ -1,16 +1,16 @@
 import { modulesObj } from "./videoData.js"
-// import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"
-// import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
+import { projectsObj } from "./projectData.js"
 
-// const appSettings = {
-//     databaseURL: "https://progress-board-default-rtdb.firebaseio.com/"
-// }
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js"
 
-// const app = initializeApp(appSettings)
-// const database = getDatabase(app)
+const appSettings = {
+    databaseURL: "https://progress-board-default-rtdb.firebaseio.com/"
+}
+const app = initializeApp(appSettings)
+const database = getDatabase(app)
 
-// const progressBoardInDB = ref(database, "progressBoard")
-// push(progressBoardInDB, "test")
+const progressBoardInDB = ref(database, "progressBoard")
 
 
 // temp data, will be added to local storage
@@ -92,7 +92,13 @@ xOutModalBtnsArr.forEach(button => {
 createUserBtn.addEventListener("click", (event) => {
     enableBtns()
     hideModal(event.target.parentElement.parentElement)
-    storeLoginInfo(document.getElementById("new-username").value, document.getElementById("new-password-one").value)
+    storeLoginInfo(document.getElementById("new-username").value)
+    addSignupInfoToDB(document.getElementById("new-username").value, 
+            document.getElementById("current-module").value,
+            document.getElementById("current-section").value,
+            document.getElementById("current-video").value,
+            document.getElementById("current-project").value,
+        )
 
     loginBtnsEl.classList.add("hidden")
     logoutBtnEl.classList.remove("hidden")
@@ -103,7 +109,8 @@ createUserBtn.addEventListener("click", (event) => {
 loginBtn.addEventListener("click", (event) => {
     enableBtns()
     hideModal(event.target.parentElement.parentElement)
-    storeLoginInfo(document.getElementById("login-username").value, document.getElementById("login-password").value)
+    storeLoginInfo(document.getElementById("login-username").value)
+    getUserData(document.getElementById("login-username").value)
 
     loginBtnsEl.classList.add("hidden")
     logoutBtnEl.classList.remove("hidden")
@@ -174,7 +181,6 @@ function enableLoginBtns() {
 
 function storeLoginInfo(username, password) {
     localStorage.setItem('username', `${username}`)
-    localStorage.setItem('password', `${password}`)
 }
 
 function clearLoginInfo() {
@@ -241,4 +247,43 @@ function createVideoDropdown() {
             }
         }
     }
+}
+
+const currentProjectsSelect = document.getElementById("current-project")
+
+createProjectsDropdown()
+
+function createProjectsDropdown() {
+    currentProjectsSelect.innerHTML = ""
+    for (const group of Object.entries(projectsObj)) {
+        const groupOfProjects = group[1].map(project => {
+            return `<option value="${project}">${project}</option>`
+        })
+        currentProjectsSelect.innerHTML += `
+                <optgroup label="${group[0]}">
+                    ${groupOfProjects}
+                </optgroup>
+            `
+    }
+}
+
+function addSignupInfoToDB(username, module, section, video, project) {
+    const userDataObj = {
+        "username": username,
+        "module": module,
+        "section": section,
+        "video": video,
+        "project": project,
+    }
+    push(progressBoardInDB, userDataObj)
+}
+
+function getUserData(username) {
+    onValue(progressBoardInDB, function(snapshot) {
+        if (snapshot.exists()) {
+            if (Object.values(snapshot.val())[0].username === username) {
+                displayProgress(Object.values(snapshot.val())[0])
+            }
+        }
+    })
 }
