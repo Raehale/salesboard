@@ -21,7 +21,8 @@ Progress Tracker is a site that tracks a user's progress on the Scrimba front en
 ## Contributors
 |Name|Email|Github|
 |----|-----|------|
-|Fadumo|email|Github|
+|Fadumo|fahmo228@gmail.com|fahme372|
+(https://github.com/fame372)
 |Vicente|vicenterh99@gmail.com|[vrhernandez](https://github.com/vrhernandez)|
 |Sam Craig|email|Github|
 |Rae|alyssarae98ha@gmail.com|[RaeHale](https://github.com/Raehale)|
