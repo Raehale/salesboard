@@ -67,6 +67,7 @@ let isValid = false
 document.querySelectorAll(".login-btn").forEach(submitBtn => {
     submitBtn.addEventListener("click", () => {
         displayGenericModal(`${submitBtn.dataset.modalType}`)
+        enableBtn(submitBtn)
     })
 })
 signUpBtn.addEventListener("click", () => {
@@ -78,9 +79,12 @@ signInBtn.addEventListener("click", () => {
 })
 
 xOutModalBtnsArr.forEach(button => {
-    button.addEventListener("click", (event) => {
+    button.addEventListener("click", event => {
         const currentModal = event.target.parentElement
         hideModal(currentModal)
+        document.querySelectorAll(".login-btn").forEach(submitBtn => {
+            enableBtn(submitBtn)
+        })
     })
 })
 
@@ -163,6 +167,10 @@ function enableBtns() {
     buttonsArr.forEach(button => {
         button.disabled = false;
     });
+}
+
+function enableBtn(button) {
+    button.disabled = false
 }
 
 function disableBtns() {
