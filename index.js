@@ -1,17 +1,7 @@
 import { modulesObj } from "./videoData.js"
 import { projectsObj } from "./projectData.js"
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js"
-
-const appSettings = {
-    databaseURL: "https://progress-board-default-rtdb.firebaseio.com/"
-}
-const app = initializeApp(appSettings)
-const database = getDatabase(app)
-
-const progressBoardInDB = ref(database, "progressBoard")
-
+import { addSignupInfoToDB } from "./createUser.js"
 
 // temp data, will be added to local storage
 const watchedVideos = []
@@ -93,12 +83,14 @@ createUserBtn.addEventListener("click", (event) => {
     enableBtns()
     hideModal(event.target.parentElement.parentElement)
     storeLoginInfo(document.getElementById("new-username").value)
-    addSignupInfoToDB(document.getElementById("new-username").value, 
-            document.getElementById("current-module").value,
-            document.getElementById("current-section").value,
-            document.getElementById("current-video").value,
-            document.getElementById("current-project").value,
-        )
+
+    const username = document.getElementById("new-username").value
+    const module = document.getElementById("current-module").value
+    const section = document.getElementById("current-section").value
+    const video = document.getElementById("current-video").value
+    const project = document.getElementById("current-project").value
+
+    addSignupInfoToDB(username, module, section, video, project)
 
     loginBtnsEl.classList.add("hidden")
     logoutBtnEl.classList.remove("hidden")
@@ -267,16 +259,6 @@ function createProjectsDropdown() {
     }
 }
 
-function addSignupInfoToDB(username, module, section, video, project) {
-    const userDataObj = {
-        "username": username,
-        "module": module,
-        "section": section,
-        "video": video,
-        "project": project,
-    }
-    push(progressBoardInDB, userDataObj)
-}
 
 function getUserData(username) {
     onValue(progressBoardInDB, function(snapshot) {
