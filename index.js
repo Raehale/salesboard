@@ -74,23 +74,23 @@ signInBtn.addEventListener("click", () => {
 
 xOutModalBtnsArr.forEach(button => {
     button.addEventListener("click", (event) => {
-        hideModal(event.target.parentElement)
-        enableLoginBtns()
+        const currentModal = event.target.parentElement
+        hideModal(currentModal)
     })
 })
 
 createUserBtn.addEventListener("click", (event) => {
-    enableBtns()
-    hideModal(event.target.parentElement.parentElement)
-    storeLoginInfo(document.getElementById("new-username").value)
-
     const username = document.getElementById("new-username").value
     const module = document.getElementById("current-module").value
     const section = document.getElementById("current-section").value
     const video = document.getElementById("current-video").value
     const project = document.getElementById("current-project").value
+    const signUpModal = event.target.parentElement.parentElement
 
+    storeLoginInfo(username)
     addSignupInfoToDB(username, module, section, video, project)
+    enableBtns()
+    hideModal(signUpModal)
 
     loginBtnsEl.classList.add("hidden")
     logoutBtnEl.classList.remove("hidden")
