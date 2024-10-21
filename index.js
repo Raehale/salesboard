@@ -281,9 +281,47 @@ function addSignupInfoToDB(username, module, section, video, project) {
 function getUserData(username) {
     onValue(progressBoardInDB, function(snapshot) {
         if (snapshot.exists()) {
-            if (Object.values(snapshot.val())[0].username === username) {
-                displayProgress(Object.values(snapshot.val())[0])
-            }
+            console.log(Object.values(snapshot.val()))
+            Object.values(snapshot.val()).forEach(user => {
+                if (user.username === username) {
+                    displayProgress(user)
+                }
+            })
         }
     })
+}
+
+function displayProgress(userData) {
+    console.log(userData)
+    videosWatched(userData.module, userData.section, userData.video)
+}
+
+function videosWatched(currentmodule, section, currentvideo) {
+    let totalVideosWatched = 0
+    let totalSecondsWatched = 0
+    for (const module of Object.entries(modulesObj)) {
+        for (const section of Object.entries(module[1])) {
+            for (const video of Object.entries(section[1])) {
+                if (video[0] !== currentvideo) {
+                    totalVideosWatched ++
+                    totalSecondsWatched += timeToSeconds(video[1])
+                } else if ( video[0] === currentvideo ) {
+                    const totalMinutesWatched = Math.ceil(totalSecondsWatched / 60)
+                    const totalHoursWatched = Math.ceil(totalMinutesWatched / 60)
+                    // console.log(secondsToMinutes)
+
+                    document.getElementById("videos-watched").textContent = `${totalVideosWatched}`
+                    document.getElementById("hours-watched").textContent = `${totalHoursWatched}`
+                }
+            }
+        }
+    }
+}
+
+function timeToSeconds(currentTime) {
+    const timeArr = currentTime.split(':')
+    const minutes = Number(timeArr[0])
+    let seconds = Number(timeArr[1])
+    seconds += (minutes * 60)
+    return seconds
 }
