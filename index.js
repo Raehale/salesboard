@@ -1,5 +1,21 @@
+import { modulesObj } from "./videoData.js"
+// import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"
+// import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
+
+// const appSettings = {
+//     databaseURL: "https://progress-board-default-rtdb.firebaseio.com/"
+// }
+
+// const app = initializeApp(appSettings)
+// const database = getDatabase(app)
+
+// const progressBoardInDB = ref(database, "progressBoard")
+// push(progressBoardInDB, "test")
+
+
 // temp data, will be added to local storage
 const watchedVideos = []
+let loggedIn = false
 let watchedToday = 0
 let totalWatched = 0
 let totalProjects = 0
@@ -16,14 +32,14 @@ watchedVideoBtnEl.addEventListener("click", function(){
     taskCompletionNotif("video", totalWatched)
     document.getElementById("watched-today").innerText = watchedToday
     document.getElementById("videos-watched").innerText = totalWatched
-    overallProgLabelEl.innerText = `Overall Progress - ${totalWatched+totalProjects}`
+    overallProgLabelEl.innerText = `Overall Progress - ${totalWatched + totalProjects}`
     document.getElementById("overall-progress").innerText += "⏩"
 })
 
 projectCompleteBtnEl.addEventListener("click", function(){
     totalProjects++
     document.getElementById("total-projects").innerText = totalProjects
-    overallProgLabelEl.innerText = `Overall Progress - ${totalWatched+totalProjects}`
+    overallProgLabelEl.innerText = `Overall Progress - ${totalWatched + totalProjects}`
     document.getElementById("overall-progress").innerText += "🏅"
     taskCompletionNotif("project", totalProjects)
 })
@@ -42,4 +58,187 @@ function taskCompletionNotif(task, total) {
     setTimeout(() => {
         taskCompletionNotifModal.style.display = "none"
     }, 5000)
+}
+
+//generic modal
+const loginBtnsEl = document.getElementById("login-btns")
+const logoutBtnEl = document.getElementById("logout-btn")
+const signUpBtn = document.getElementById("sign-up-btn")
+const signInBtn = document.getElementById("sign-in-btn")
+const xOutModalBtnsArr = document.querySelectorAll(".x-out")
+const buttonsArr = document.querySelector("#container").querySelectorAll(".btn")
+const createUserBtn = document.getElementById("create-user")
+const loginBtn = document.getElementById("login-btn")
+const logoutBtn = document.getElementById("log-out-btn")
+const signUpForm = document.getElementById("sign-up-form")
+const signInForm = document.getElementById("sign-in-form")
+let isValid = false
+
+signUpBtn.addEventListener("click", () => {
+    displayGenericModal("sign-up")
+})
+
+signInBtn.addEventListener("click", () => {
+    displayGenericModal("sign-in")
+})
+
+xOutModalBtnsArr.forEach(button => {
+    button.addEventListener("click", (event) => {
+        hideModal(event.target.parentElement)
+        enableLoginBtns()
+    })
+})
+
+createUserBtn.addEventListener("click", (event) => {
+    enableBtns()
+    hideModal(event.target.parentElement.parentElement)
+    storeLoginInfo(document.getElementById("new-username").value, document.getElementById("new-password-one").value)
+
+    loginBtnsEl.classList.add("hidden")
+    logoutBtnEl.classList.remove("hidden")
+
+    loggedIn = true
+})
+
+loginBtn.addEventListener("click", (event) => {
+    enableBtns()
+    hideModal(event.target.parentElement.parentElement)
+    storeLoginInfo(document.getElementById("login-username").value, document.getElementById("login-password").value)
+
+    loginBtnsEl.classList.add("hidden")
+    logoutBtnEl.classList.remove("hidden")
+
+    loggedIn = true
+})
+
+logoutBtn.addEventListener("click", () => {
+    disableBtns()
+    enableLoginBtns()
+    clearLoginInfo()
+
+    loginBtnsEl.classList.remove("hidden")
+    logoutBtnEl.classList.add("hidden")
+
+    loggedIn = false
+})
+
+signUpForm.addEventListener("input", () => {
+    signUpForm.querySelectorAll(".modal-question").forEach(question => {
+        if (question.value !== "") {
+            isValid = true
+        } else {
+            isValid = false
+        }
+    });
+    createUserBtn.disabled = !isValid
+})
+
+signInForm.addEventListener("input", () => {
+    signInForm.querySelectorAll(".modal-question").forEach(question => {
+        if (question.value !== "") {
+            isValid = true
+        } else {
+            isValid = false
+        }
+    });
+    loginBtn.disabled = !isValid
+})
+
+function displayGenericModal(type) {
+    const modal = document.getElementById(`${type}-modal`)
+    modal.style.display = "grid"
+
+    disableBtns()
+}
+
+function hideModal(selectedModal) {
+    selectedModal.style.display = "none"
+}
+
+function enableBtns() {
+    buttonsArr.forEach(button => {
+        button.disabled = false;
+    });
+}
+
+function disableBtns() {
+    buttonsArr.forEach(button => {
+        button.disabled = true;
+    });
+}
+
+function enableLoginBtns() {
+    signUpBtn.disabled = false;
+    signInBtn.disabled = false;
+}
+
+function storeLoginInfo(username, password) {
+    localStorage.setItem('username', `${username}`)
+    localStorage.setItem('password', `${password}`)
+}
+
+function clearLoginInfo() {
+    localStorage.clear()
+}
+
+const currentModuleSelect = document.getElementById("current-module")
+const currentSectionSelect = document.getElementById("current-section")
+const currentVideoSelect = document.getElementById("current-video")
+
+createModuleDropdown()
+createSectionDropdown()
+createVideoDropdown()
+
+currentModuleSelect.addEventListener("change", () => {
+    createSectionDropdown()
+    createVideoDropdown()
+})
+
+currentSectionSelect.addEventListener("change", () => {
+    createVideoDropdown()
+})
+
+function createModuleDropdown() {
+    currentModuleSelect.innerHTML = ""
+    for (const module of Object.entries(modulesObj)) {
+        currentModuleSelect.innerHTML += `
+                <option value="${module[0]}">
+                    ${module[0]}
+                </option>
+            `
+    }
+}
+
+function createSectionDropdown() {
+    currentSectionSelect.innerHTML = ""
+    for (const module of Object.entries(modulesObj)) {
+        if (module[0] == currentModuleSelect.value) {
+            for (const section of Object.entries(module[1])) {
+                currentSectionSelect.innerHTML += `
+                    <option value="${section[0]}">
+                        ${section[0]}
+                    </option>
+                `
+            }
+        }
+    }
+}
+
+function createVideoDropdown() {
+    currentVideoSelect.innerHTML = ""
+    for (const module of Object.entries(modulesObj)) {
+        if (module[0] == currentModuleSelect.value) {
+            for (const section of Object.entries(module[1])) {
+                if (section[0] == currentSectionSelect.value) {
+                    for (const video of Object.entries(section[1])) {
+                        currentVideoSelect.innerHTML += `
+                            <option value="${video[0]}">
+                                ${video[0]}
+                            </option>
+                        `
+                    }
+                }
+            }
+        }
+    }
 }

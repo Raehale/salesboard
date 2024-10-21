@@ -29,6 +29,54 @@ h2 {
     font-size: 30px;
 }
 
+/***BUTTON***/
+.btn {
+    color: #FFDF86;
+    font-family: inherit;
+    background-color: #9E4770;
+    font-weight: bold;
+
+    width: 100%;
+    height: 100%;
+
+    padding: 15px 35px;
+    border-radius: 10px;
+    border: none;
+
+    &:hover {
+        color: #9E4770;
+        background-color: #FFDF86;
+
+        transition-duration: 0.5s;
+        cursor: pointer;
+    }
+
+    &:active {
+        transform: scale(0.9);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        color: #FFDF86;
+        background-color: #9E4770;
+
+        &:active {
+            transform: none;
+        }
+    }
+}
+
+.no-btn-bg {
+    background-color: transparent;
+    border: none;
+}
+
+/***HR***/
+hr {
+    width: 80%;
+    margin-bottom: 1rem;
+}
+
 /***MAIN***/
 /**TRACKED PROGRESS**/
 .tracker {
@@ -72,10 +120,16 @@ h2 {
 
         cursor: pointer;
     }
+
+    &:disabled {
+        color: white;
+
+        cursor: not-allowed;
+    }
 }
 
 /**BUTTONS**/
-.reward-btns {
+.inline-btns {
     display: flex;
     justify-content: space-between;
 
@@ -88,34 +142,7 @@ h2 {
 
         padding: 5px;
     }
-
-    button {
-        color: #FFDF86;
-        font-family: inherit;
-        background-color: #9E4770;
-        font-weight: bold;
-
-        width: 100%;
-        height: 100%;
-
-        padding: 15px 35px;
-        border-radius: 10px;
-        border: none;
-
-        &:hover {
-            color: #9E4770;
-            background-color: #FFDF86;
-
-            transition-duration: 0.5s;
-            cursor: pointer;
-        }
-
-        &:active {
-            transform: scale(0.9);
-        }
-    }
 }
-
 
 /**CURRENT PROGRESS**/
 .progress-label {
@@ -163,6 +190,78 @@ h2 {
 }
 
 /***MODAL***/
+/**SIGN UP**/
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: none; /*grid when displayed*/
+
+    color: white;
+
+    background-color: #252525;
+
+    min-width: 80%;
+
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 0 100px 10px #000;
+}
+
+.x-out {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+
+    &:hover {
+        opacity: 0.5;
+        cursor: pointer;
+    }
+}
+
+.modal-header {
+    padding-top: 0;
+    margin: 0 0 1rem;
+    text-shadow: none;
+}
+
+.modal-form {
+    display: grid;
+
+    text-align: left;
+
+    width: 80%;
+
+    margin: 0 auto;
+}
+
+.modal-item {
+    display: grid;
+}
+
+.modal-question {
+    color: white;
+    background-color: #44354A;
+    line-height: 2;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+    border: 0;
+}
+
+select.modal-question {
+    min-height: 2rem;
+}
+
+.submit-btn {
+    width: 80%;
+    height: 100%;
+
+    margin: 0 auto;
+}
+
+/**NOTIFICATION**/
 .task-completion-notification {
     display: none;
     position: fixed;
@@ -216,6 +315,14 @@ h2 {
         z-index: -1;
     }
 
+    /**BUTTONS**/
+    .login-btns {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        width: 20%;
+    }
+
     /**MAIN**/
     main {
         position: relative;
@@ -231,7 +338,7 @@ h2 {
         margin: 0 5%;
     }
 
-    /*HEADINGS*/
+    /**HEADINGS**/
     h2 {
         position: relative;
 
@@ -254,7 +361,7 @@ h2 {
         margin-left: 0.5em;
     }
 
-    /*WEEKLY PROGRESS*/
+    /**WEEKLY PROGRESS**/
     .display {
         width: 50%;
 
@@ -266,7 +373,7 @@ h2 {
         height: 40px;
     }
 
-    /*ACTIONS BOX*/
+    /**ACTIONS BOX**/
     .actions {
         position: absolute;
         top: 0;
@@ -278,7 +385,7 @@ h2 {
         border-radius: 20px;
     }
 
-    /*PROGRESS TOTALS*/
+    /**PROGRESS TOTALS**/
     .total-progress {
         width: 100%;
     }
@@ -293,4 +400,39 @@ h2 {
         margin-top: 2rem;
         gap: 4rem;
     }
+
+    /**MODAL**/
+    .modal {
+        max-width: 1200px;
+        min-width: 1000px;
+    }
+    .modal-form {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+
+        width: 100%;
+    }
+
+    .modal-header {
+        text-align: center;
+    }
+
+    .modal-item {
+        width: 40%;
+    }
+
+    .whole-line-item {
+        margin: 0 30%;
+    }
+
+    .submit-btn {
+        height: auto;
+        width: 40%;
+    }
+}
+
+/*HIDE ELEMENT*/
+.hidden {
+    display: none;
 }
