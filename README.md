@@ -26,6 +26,7 @@ Progress Tracker is a site that tracks a user's progress on the Scrimba front en
 |Vicente|vicenterh99@gmail.com|[vrhernandez](https://github.com/vrhernandez)|
 |Sam Craig|email|Github|
 |Rae|alyssarae98ha@gmail.com|[RaeHale](https://github.com/Raehale)|
+|davyrap|email|[davyrap](https://github.com/davyrap)|
 
 ---
 ### remove when done

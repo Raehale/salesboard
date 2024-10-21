@@ -325,3 +325,9 @@ function timeToSeconds(currentTime) {
     seconds += (minutes * 60)
     return seconds
 }
+
+// color management
+var toggleDarkMode = document.getElementById("mode-toggle");
+toggleDarkMode.addEventListener("change", function() {
+    document.body.classList.toggle("light-mode");
+});
