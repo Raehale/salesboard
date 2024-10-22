@@ -1,17 +1,17 @@
 import { modulesObj } from "./videoData.js"
 import { projectsObj } from "./projectData.js"
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js"
+import { createUser } from "./createUser.js"
+import { hideModal, displayGenericModal } from "./modal.js"
 
-const appSettings = {
-    databaseURL: "https://progress-board-default-rtdb.firebaseio.com/"
-}
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import { getDatabase, ref, onValue, remove } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js"
+
+//firebase set up
+const appSettings = { databaseURL: "https://progress-board-default-rtdb.firebaseio.com/" }
 const app = initializeApp(appSettings)
 const database = getDatabase(app)
-
-const progressBoardInDB = ref(database, "progressBoard")
-
+export const progressBoardInDB = ref(database, "progressBoard")
 
 // temp data, will be added to local storage
 const watchedVideos = []
@@ -24,7 +24,6 @@ const watchedVideoBtnEl = document.getElementById("watched-video-btn")
 const projectCompleteBtnEl = document.getElementById("project-complete-btn")
 const totalProjectsEl = document.getElementById("total-projects")
 const overallProgLabelEl = document.getElementById("overall-prog-label")
-
 
 watchedVideoBtnEl.addEventListener("click", function(){
     watchedToday++
@@ -74,6 +73,12 @@ const signUpForm = document.getElementById("sign-up-form")
 const signInForm = document.getElementById("sign-in-form")
 let isValid = false
 
+document.querySelectorAll(".login-btn").forEach(loginBtn => {
+    loginBtn.addEventListener("click", () => {
+        displayGenericModal(`${loginBtn.dataset.modalType}`)
+    })
+})
+
 signUpBtn.addEventListener("click", () => {
     displayGenericModal("sign-up")
 })
@@ -83,25 +88,25 @@ signInBtn.addEventListener("click", () => {
 })
 
 xOutModalBtnsArr.forEach(button => {
-    button.addEventListener("click", (event) => {
-        hideModal(event.target.parentElement)
-        enableLoginBtns()
+    button.addEventListener("click", event => {
+        const currentModal = event.target.parentElement
+
+        hideModal(currentModal)
+
+        document.querySelectorAll(".login-btn").forEach(loginBtn => {
+            enableBtn(loginBtn)
+        })
     })
 })
 
 createUserBtn.addEventListener("click", (event) => {
-    enableBtns()
-    hideModal(event.target.parentElement.parentElement)
-    storeLoginInfo(document.getElementById("new-username").value)
-    addSignupInfoToDB(document.getElementById("new-username").value, 
-            document.getElementById("current-module").value,
-            document.getElementById("current-section").value,
-            document.getElementById("current-video").value,
-            document.getElementById("current-project").value,
-        )
+    const signUpModal = event.target.parentElement.parentElement
 
-    loginBtnsEl.classList.add("hidden")
-    logoutBtnEl.classList.remove("hidden")
+    createUser()
+    enableBtns()
+    hideModal(signUpModal)
+
+    toggleLogInOutBtns()
 
     loggedIn = true
 })
@@ -111,20 +116,15 @@ loginBtn.addEventListener("click", (event) => {
     hideModal(event.target.parentElement.parentElement)
     storeLoginInfo(document.getElementById("login-username").value)
     getUserData(document.getElementById("login-username").value)
-
-    loginBtnsEl.classList.add("hidden")
-    logoutBtnEl.classList.remove("hidden")
+    toggleLogInOutBtns()
 
     loggedIn = true
 })
 
 logoutBtn.addEventListener("click", () => {
     disableBtns()
-    enableLoginBtns()
     clearLoginInfo()
-
-    loginBtnsEl.classList.remove("hidden")
-    logoutBtnEl.classList.add("hidden")
+    toggleLogInOutBtns()
 
     loggedIn = false
 })
@@ -151,35 +151,30 @@ signInForm.addEventListener("input", () => {
     loginBtn.disabled = !isValid
 })
 
-function displayGenericModal(type) {
-    const modal = document.getElementById(`${type}-modal`)
-    modal.style.display = "grid"
-
-    disableBtns()
-}
-
-function hideModal(selectedModal) {
-    selectedModal.style.display = "none"
-}
-
+//enabling or disabling buttons
 function enableBtns() {
     buttonsArr.forEach(button => {
         button.disabled = false;
     });
 }
 
-function disableBtns() {
+export function disableBtns() {
     buttonsArr.forEach(button => {
         button.disabled = true;
     });
 }
 
-function enableLoginBtns() {
-    signUpBtn.disabled = false;
-    signInBtn.disabled = false;
+function toggleLogInOutBtns() {
+    loginBtnsEl.classList.toggle("hidden")
+    logoutBtnEl.classList.toggle("hidden")
 }
 
-function storeLoginInfo(username, password) {
+function enableBtn(button) {
+    button.disabled = false
+}
+
+//handing info in local storage
+export function storeLoginInfo(username) {
     localStorage.setItem('username', `${username}`)
 }
 
@@ -187,101 +182,10 @@ function clearLoginInfo() {
     localStorage.clear()
 }
 
-const currentModuleSelect = document.getElementById("current-module")
-const currentSectionSelect = document.getElementById("current-section")
-const currentVideoSelect = document.getElementById("current-video")
-
-createModuleDropdown()
-createSectionDropdown()
-createVideoDropdown()
-
-currentModuleSelect.addEventListener("change", () => {
-    createSectionDropdown()
-    createVideoDropdown()
-})
-
-currentSectionSelect.addEventListener("change", () => {
-    createVideoDropdown()
-})
-
-function createModuleDropdown() {
-    currentModuleSelect.innerHTML = ""
-    for (const module of Object.entries(modulesObj)) {
-        currentModuleSelect.innerHTML += `
-                <option value="${module[0]}">
-                    ${module[0]}
-                </option>
-            `
-    }
-}
-
-function createSectionDropdown() {
-    currentSectionSelect.innerHTML = ""
-    for (const module of Object.entries(modulesObj)) {
-        if (module[0] == currentModuleSelect.value) {
-            for (const section of Object.entries(module[1])) {
-                currentSectionSelect.innerHTML += `
-                    <option value="${section[0]}">
-                        ${section[0]}
-                    </option>
-                `
-            }
-        }
-    }
-}
-
-function createVideoDropdown() {
-    currentVideoSelect.innerHTML = ""
-    for (const module of Object.entries(modulesObj)) {
-        if (module[0] == currentModuleSelect.value) {
-            for (const section of Object.entries(module[1])) {
-                if (section[0] == currentSectionSelect.value) {
-                    for (const video of Object.entries(section[1])) {
-                        currentVideoSelect.innerHTML += `
-                            <option value="${video[0]}">
-                                ${video[0]}
-                            </option>
-                        `
-                    }
-                }
-            }
-        }
-    }
-}
-
-const currentProjectsSelect = document.getElementById("current-project")
-
-createProjectsDropdown()
-
-function createProjectsDropdown() {
-    currentProjectsSelect.innerHTML = ""
-    for (const group of Object.entries(projectsObj)) {
-        const groupOfProjects = group[1].map(project => {
-            return `<option value="${project}">${project}</option>`
-        })
-        currentProjectsSelect.innerHTML += `
-                <optgroup label="${group[0]}">
-                    ${groupOfProjects}
-                </optgroup>
-            `
-    }
-}
-
-function addSignupInfoToDB(username, module, section, video, project) {
-    const userDataObj = {
-        "username": username,
-        "module": module,
-        "section": section,
-        "video": video,
-        "project": project,
-    }
-    push(progressBoardInDB, userDataObj)
-}
-
+//gets the data for a user
 function getUserData(username) {
     onValue(progressBoardInDB, function(snapshot) {
         if (snapshot.exists()) {
-            console.log(Object.values(snapshot.val()))
             Object.values(snapshot.val()).forEach(user => {
                 if (user.username === username) {
                     displayProgress(user)
@@ -291,11 +195,12 @@ function getUserData(username) {
     })
 }
 
+//displays the users data
 function displayProgress(userData) {
-    console.log(userData)
     videosWatched(userData.module, userData.section, userData.video)
 }
 
+//gets the total videos watched and how many hours of vieos have been watched
 function videosWatched(currentmodule, section, currentvideo) {
     let totalVideosWatched = 0
     let totalSecondsWatched = 0
@@ -308,7 +213,6 @@ function videosWatched(currentmodule, section, currentvideo) {
                 } else if ( video[0] === currentvideo ) {
                     const totalMinutesWatched = Math.ceil(totalSecondsWatched / 60)
                     const totalHoursWatched = Math.ceil(totalMinutesWatched / 60)
-                    // console.log(secondsToMinutes)
 
                     document.getElementById("videos-watched").textContent = `${totalVideosWatched}`
                     document.getElementById("hours-watched").textContent = `${totalHoursWatched}`
