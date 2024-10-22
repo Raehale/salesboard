@@ -251,6 +251,7 @@ function lightModeColors() {
     document.documentElement.style.setProperty("--background-two", "#DEA6C1")
     document.documentElement.style.setProperty("--button", "#6C4766")
     document.documentElement.style.setProperty("--accent", "#FFDF86")
+    titleEl.style.textShadow = "none"
 }
 
 function darkModeColors() {
@@ -260,4 +261,5 @@ function darkModeColors() {
     document.documentElement.style.setProperty("--background-two", "#2D1420")
     document.documentElement.style.setProperty("--button", "#9E4770")
     document.documentElement.style.setProperty("--accent", "#FFDF86")
+    titleEl.style.textShadow = "0 0 10px var(--background-one)"
 }
