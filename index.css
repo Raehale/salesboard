@@ -425,25 +425,20 @@ select.modal-question {
         font-size: 18px;
     }
   
+    /**WATCHED SECTION**/
+    .watched {
+        display: flex;
+        flex-direction: column;
+        font-size: 20px; 
+    }
 
+    .watched div {
+        width: 100%;
 
-
-
-
-/**WATCHED SECTION**/
-.watched {
-   display: flex;
-   flex-direction: column;
-   font-size: 20px; 
-}
-
-.watched div {
-    width: 100%;
+    }
 
 }
 
-
-
-
-
+.hidden {
+     display: none;
 }
