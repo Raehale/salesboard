@@ -1,16 +1,25 @@
+/***COLORS***/
+:root {
+    --text: #DED8DD;
+    --background-one: #252525;
+    --bubble: #44354A;
+    --background-two: #2D1420;
+    --button: #9E4770;
+    --accent: #FFDF86;
+}
+
 * {
     box-sizing: border-box;
 }
 
 body {
     text-align: center;
-    background: #252525;
+    background: var(--background-one);
     font-family: "Poppins", sans-serif;
 }
 
-
 .container {
-    color:white;
+    color:var(--text);
     font-family: Poppins;
 
     width: 400px;
@@ -31,9 +40,9 @@ h2 {
 
 /***BUTTON***/
 .btn {
-    color: #FFDF86;
+    color: var(--accent);
     font-family: inherit;
-    background-color: #9E4770;
+    background-color: var(--button);
     font-weight: bold;
 
     width: 100%;
@@ -44,8 +53,8 @@ h2 {
     border: none;
 
     &:hover {
-        color: #9E4770;
-        background-color: #FFDF86;
+        color: var(--button);
+        background-color: var(--accent);
 
         transition-duration: 0.5s;
         cursor: pointer;
@@ -57,8 +66,8 @@ h2 {
 
     &:disabled {
         cursor: not-allowed;
-        color: #FFDF86;
-        background-color: #9E4770;
+        color: var(--accent);
+        background-color: var(--button);
 
         &:active {
             transform: none;
@@ -77,6 +86,15 @@ hr {
     margin-bottom: 1rem;
 }
 
+/***MODE TOGGLE**/
+.mode-toggle {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
 /***MAIN***/
 /**TRACKED PROGRESS**/
 .tracker {
@@ -92,7 +110,7 @@ hr {
 }
 
 .tracker-bubble {
-    background-color: #44354A;
+    background-color: var(--bubble);
 
     width: 120px;
     height: 30px;
@@ -109,16 +127,16 @@ hr {
 }
 
 .select-icon {
-    color: #fff;
+    color: var(--text);
 
     &:hover {
-        color: #FFDF86;
+        color: var(--accent);
 
         cursor: pointer;
     }
 
     &:disabled {
-        color: white;
+        color: var(--text);
 
         cursor: not-allowed;
     }
@@ -150,7 +168,7 @@ hr {
 }
 
 .progress-display {
-    background: #44354A;
+    background: var(--bubble);
 
     height: 40px;
 
@@ -178,7 +196,7 @@ hr {
 .watched-display {
     font-size: 20px;
 
-    background-color: #44354A;
+    background-color: var(--bubble);
 
     padding: 8px 0;
     border-radius: 50px;
@@ -195,15 +213,15 @@ hr {
 
     display: none; /*grid when displayed*/
 
-    color: white;
+    color: var(--text);
 
-    background-color: #252525;
+    background-color: var(--background-one);
 
     min-width: 80%;
 
     padding: 2rem;
     border-radius: 20px;
-    box-shadow: 0 0 100px 10px #000;
+    box-shadow: 0 0 100px 10px var(--background-one);
 }
 
 .x-out {
@@ -238,8 +256,8 @@ hr {
 }
 
 .modal-question {
-    color: white;
-    background-color: #44354A;
+    color: var(--text);
+    background-color: var(--bubble);
     line-height: 2;
     border-radius: 20px;
     margin-bottom: 1rem;
@@ -264,10 +282,10 @@ select.modal-question {
     bottom: 1rem;
     right: 1rem;
 
-    color: #252525;
+    color: var(--background-one);
     font-weight: bold;
 
-    background-color: #FFDF86;
+    background-color: var(--accent);
 
     padding: 2rem;
     border-radius: 8px 8px 0 8px;
@@ -277,8 +295,8 @@ select.modal-question {
 /***DESKTOP***/
 @media screen and (min-width: 1250px) {
     body {
-        background: #252525;
-        background: conic-gradient(from 45deg, #252525, #2d1420);
+        background: var(--background-one);
+        background: conic-gradient(from 45deg, var(--background-one), var(--background-two));
     }
 
     /**HEADER**/
@@ -290,7 +308,7 @@ select.modal-question {
         position: relative;
 
         font-size: 5rem;
-        text-shadow: 0 0 10px #252525;
+        text-shadow: 0 0 10px var(--background-one);
 
         margin: 0;
     }
@@ -301,7 +319,7 @@ select.modal-question {
         left: 4rem;
         bottom: 2.25rem;
 
-        background-color: #9E4770;
+        background-color: var(--button);
 
         height: 1rem;
         width: 50%;
@@ -375,7 +393,7 @@ select.modal-question {
         top: 0;
         right: 0;
 
-        background-color: #44354A;
+        background-color: var(--bubble);
 
         padding: 2rem;
         border-radius: 20px;
@@ -399,32 +417,28 @@ select.modal-question {
 }
 @media screen and (max-width: 600px) {
     body {
-        background: #252525;
-        background: conic-gradient(from 45deg, #252525, #2d1420);
+        background: var(--background-one);
+        background: conic-gradient(from 45deg, var(--background-one), var(--background-two));
         width: 100%;
     }
-    .container{
+    .container {
         padding: 1rem;
-      
-      
     }
-   
-    /** header **/
 
-    h1{
+    /**HEADER**/
+    h1 {
         font-size:2rem;
     }
     
-    h2{
+    h2 {
         font-size: 1.5rem
     }
-     /** main **/
-    
 
+    /**MAIN**/
     .bubble-lable {
         font-size: 18px;
     }
-  
+
     /**WATCHED SECTION**/
     .watched {
         display: flex;
@@ -440,5 +454,5 @@ select.modal-question {
 }
 
 .hidden {
-     display: none;
+    display: none;
 }
