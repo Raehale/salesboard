@@ -229,3 +229,11 @@ function timeToSeconds(currentTime) {
     seconds += (minutes * 60)
     return seconds
 }
+
+//mode toggle
+const modeToggleEl = document.getElementById("mode-toggle")
+
+modeToggleEl.addEventListener("click", () => {
+    modeToggleEl.classList.toggle("fa-toggle-off")
+    modeToggleEl.classList.toggle("fa-toggle-on")
+})

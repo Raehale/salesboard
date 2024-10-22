@@ -1,3 +1,13 @@
+/***COLORS***/
+:root {
+    -main-white: #DED8DD;
+    -main-black: #252525;
+    -purple: #44354A;
+    -maroon: #2D1420;
+    -pink: #9E4770;
+    -yellow: #FFDF86;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -7,7 +17,6 @@ body {
     background: #252525;
     font-family: "Poppins", sans-serif;
 }
-
 
 .container {
     color:white;
@@ -75,6 +84,15 @@ h2 {
 hr {
     width: 80%;
     margin-bottom: 1rem;
+}
+
+/***MODE TOGGLE**/
+.mode-toggle {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    font-size: 2rem;
+    cursor: pointer;
 }
 
 /***MAIN***/
