@@ -279,6 +279,8 @@ select.modal-question {
     body {
         background: #252525;
         background: conic-gradient(from 45deg, #252525, #2d1420);
+        background-repeat: no-repeat;
+        overflow: hidden;
     }
 
     /**HEADER**/
