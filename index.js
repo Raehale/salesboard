@@ -229,3 +229,37 @@ function timeToSeconds(currentTime) {
     seconds += (minutes * 60)
     return seconds
 }
+
+//mode toggle
+const modeToggleEl = document.getElementById("mode-toggle")
+const titleEl = document.getElementById("title")
+
+modeToggleEl.addEventListener("click", () => {
+    modeToggleEl.classList.toggle("fa-toggle-off")
+    modeToggleEl.classList.toggle("fa-toggle-on")
+    if (modeToggleEl.classList.contains("fa-toggle-on")) {
+        lightModeColors()
+    } else {
+        darkModeColors()
+    }
+})
+
+function lightModeColors() {
+    document.documentElement.style.setProperty("--text", "#252525")
+    document.documentElement.style.setProperty("--background-one", "#DED8DD")
+    document.documentElement.style.setProperty("--bubble", "#BDABC4")
+    document.documentElement.style.setProperty("--background-two", "#DEA6C1")
+    document.documentElement.style.setProperty("--button", "#6C4766")
+    document.documentElement.style.setProperty("--accent", "#FFDF86")
+    titleEl.style.textShadow = "none"
+}
+
+function darkModeColors() {
+    document.documentElement.style.setProperty("--text", "#DED8DD")
+    document.documentElement.style.setProperty("--background-one", "#252525")
+    document.documentElement.style.setProperty("--bubble", "#44354A")
+    document.documentElement.style.setProperty("--background-two", "#2D1420")
+    document.documentElement.style.setProperty("--button", "#9E4770")
+    document.documentElement.style.setProperty("--accent", "#FFDF86")
+    titleEl.style.textShadow = "0 0 10px var(--background-one)"
+}
