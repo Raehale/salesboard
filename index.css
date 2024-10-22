@@ -1,11 +1,11 @@
 /***COLORS***/
 :root {
-    --main-white: #DED8DD;
-    --main-black: #252525;
-    --purple: #44354A;
-    --maroon: #2D1420;
-    --pink: #9E4770;
-    --yellow: #FFDF86;
+    --text: #DED8DD;
+    --background-one: #252525;
+    --bubble: #44354A;
+    --background-two: #2D1420;
+    --button: #9E4770;
+    --accent: #FFDF86;
 }
 
 * {
@@ -14,12 +14,12 @@
 
 body {
     text-align: center;
-    background: var(--main-black);
+    background: var(--background-one);
     font-family: "Poppins", sans-serif;
 }
 
 .container {
-    color:var(--main-white);
+    color:var(--text);
     font-family: Poppins;
 
     width: 400px;
@@ -40,9 +40,9 @@ h2 {
 
 /***BUTTON***/
 .btn {
-    color: var(--yellow);
+    color: var(--accent);
     font-family: inherit;
-    background-color: var(--pink);
+    background-color: var(--button);
     font-weight: bold;
 
     width: 100%;
@@ -53,8 +53,8 @@ h2 {
     border: none;
 
     &:hover {
-        color: var(--pink);
-        background-color: var(--yellow);
+        color: var(--button);
+        background-color: var(--accent);
 
         transition-duration: 0.5s;
         cursor: pointer;
@@ -66,8 +66,8 @@ h2 {
 
     &:disabled {
         cursor: not-allowed;
-        color: var(--yellow);
-        background-color: var(--pink);
+        color: var(--accent);
+        background-color: var(--button);
 
         &:active {
             transform: none;
@@ -110,7 +110,7 @@ hr {
 }
 
 .tracker-bubble {
-    background-color: var(--purple);
+    background-color: var(--bubble);
 
     width: 120px;
     height: 30px;
@@ -127,16 +127,16 @@ hr {
 }
 
 .select-icon {
-    color: var(--main-white);
+    color: var(--text);
 
     &:hover {
-        color: var(--yellow);
+        color: var(--accent);
 
         cursor: pointer;
     }
 
     &:disabled {
-        color: var(--main-white);
+        color: var(--text);
 
         cursor: not-allowed;
     }
@@ -168,7 +168,7 @@ hr {
 }
 
 .progress-display {
-    background: var(--purple);
+    background: var(--bubble);
 
     height: 40px;
 
@@ -196,7 +196,7 @@ hr {
 .watched-display {
     font-size: 20px;
 
-    background-color: var(--purple);
+    background-color: var(--bubble);
 
     padding: 8px 0;
     border-radius: 50px;
@@ -213,15 +213,15 @@ hr {
 
     display: none; /*grid when displayed*/
 
-    color: var(--main-white);
+    color: var(--text);
 
-    background-color: var(--main-black);
+    background-color: var(--background-one);
 
     min-width: 80%;
 
     padding: 2rem;
     border-radius: 20px;
-    box-shadow: 0 0 100px 10px var(--main-black);
+    box-shadow: 0 0 100px 10px var(--background-one);
 }
 
 .x-out {
@@ -256,8 +256,8 @@ hr {
 }
 
 .modal-question {
-    color: var(--main-white);
-    background-color: var(--purple);
+    color: var(--text);
+    background-color: var(--bubble);
     line-height: 2;
     border-radius: 20px;
     margin-bottom: 1rem;
@@ -282,10 +282,10 @@ select.modal-question {
     bottom: 1rem;
     right: 1rem;
 
-    color: var(--main-black);
+    color: var(--background-one);
     font-weight: bold;
 
-    background-color: var(--yellow);
+    background-color: var(--accent);
 
     padding: 2rem;
     border-radius: 8px 8px 0 8px;
@@ -295,8 +295,8 @@ select.modal-question {
 /***DESKTOP***/
 @media screen and (min-width: 1250px) {
     body {
-        background: var(--main-black);
-        background: conic-gradient(from 45deg, var(--main-black), var(--maroon));
+        background: var(--background-one);
+        background: conic-gradient(from 45deg, var(--background-one), var(--background-two));
     }
 
     /**HEADER**/
@@ -308,7 +308,7 @@ select.modal-question {
         position: relative;
 
         font-size: 5rem;
-        text-shadow: 0 0 10px var(--main-black);
+        text-shadow: 0 0 10px var(--background-one);
 
         margin: 0;
     }
@@ -319,7 +319,7 @@ select.modal-question {
         left: 4rem;
         bottom: 2.25rem;
 
-        background-color: var(--pink);
+        background-color: var(--button);
 
         height: 1rem;
         width: 50%;
@@ -393,7 +393,7 @@ select.modal-question {
         top: 0;
         right: 0;
 
-        background-color: var(--purple);
+        background-color: var(--bubble);
 
         padding: 2rem;
         border-radius: 20px;
@@ -417,8 +417,8 @@ select.modal-question {
 }
 @media screen and (max-width: 600px) {
     body {
-        background: var(--main-black);
-        background: conic-gradient(from 45deg, var(--main-black), var(--maroon));
+        background: var(--background-one);
+        background: conic-gradient(from 45deg, var(--background-one), var(--background-two));
         width: 100%;
     }
     .container {
