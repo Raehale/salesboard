@@ -210,15 +210,10 @@ hr {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-
-    display: none; /*grid when displayed*/
-
+    display: grid;
     color: var(--text);
-
     background-color: var(--background-one);
-
     min-width: 80%;
-
     padding: 2rem;
     border-radius: 20px;
     box-shadow: 0 0 100px 10px var(--background-one);
@@ -289,6 +284,10 @@ select.modal-question {
 
     padding: 2rem;
     border-radius: 8px 8px 0 8px;
+}
+
+.hidden {
+    display: none;
 }
 
 
