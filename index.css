@@ -16,6 +16,7 @@ body {
     text-align: center;
     background: var(--background-one);
     font-family: "Poppins", sans-serif;
+    margin: 0;
 }
 
 .container {
