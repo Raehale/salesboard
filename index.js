@@ -64,7 +64,6 @@ const loginBtnsEl = document.getElementById("login-btns")
 const logoutBtnEl = document.getElementById("logout-btn")
 const signUpBtn = document.getElementById("sign-up-btn")
 const signInBtn = document.getElementById("sign-in-btn")
-const xOutModalBtnsArr = document.querySelectorAll(".x-out")
 const buttonsArr = document.querySelector("#container").querySelectorAll(".btn")
 const createUserBtn = document.getElementById("create-user")
 const loginBtn = document.getElementById("login-btn")
@@ -87,16 +86,9 @@ signInBtn.addEventListener("click", () => {
     displayGenericModal("sign-in")
 })
 
-xOutModalBtnsArr.forEach(button => {
-    button.addEventListener("click", event => {
-        const currentModal = event.target.parentElement
+document.addEventListener("click", event => {
 
-        hideModal(currentModal)
-
-        document.querySelectorAll(".login-btn").forEach(loginBtn => {
-            enableBtn(loginBtn)
-        })
-    })
+    [...event.target.classList].includes('x-out') ? event.target.parentElement.classList.toggle('hidden') : ''
 })
 
 createUserBtn.addEventListener("click", (event) => {
@@ -148,7 +140,7 @@ signInForm.addEventListener("input", () => {
             isValid = false
         }
     });
-    loginBtn.disabled = !isValid
+    // loginBtn.disabled = !isValid
 })
 
 //enabling or disabling buttons
