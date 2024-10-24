@@ -21,9 +21,8 @@ currentSectionSelect.addEventListener("change", () => {
 //displays the modal
 export function displayGenericModal(type) {
     const modal = document.getElementById(`${type}-modal`)
-    modal.style.display = "grid"
-
-    disableBtns()
+    modal.classList.toggle('hidden')
+    // disableBtns()
 }
 
 //hides the modal
