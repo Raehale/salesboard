@@ -72,23 +72,26 @@ const signUpForm = document.getElementById("sign-up-form")
 const signInForm = document.getElementById("sign-in-form")
 let isValid = false
 
-document.querySelectorAll(".login-btn").forEach(loginBtn => {
-    loginBtn.addEventListener("click", () => {
-        displayGenericModal(`${loginBtn.dataset.modalType}`)
-    })
-})
+// document.querySelectorAll(".login-btn").forEach(loginBtn => {
+//     loginBtn.addEventListener("click", () => {
+//         displayGenericModal(`${loginBtn.dataset.modalType}`)
+//     })
+// })
 
-signUpBtn.addEventListener("click", () => {
-    displayGenericModal("sign-up")
-})
+// signUpBtn.addEventListener("click", () => {
+//     displayGenericModal("sign-up")
+// })
 
-signInBtn.addEventListener("click", () => {
-    displayGenericModal("sign-in")
-})
+// signInBtn.addEventListener("click", () => {
+//     displayGenericModal("sign-in")
+// })
 
 document.addEventListener("click", event => {
-
-    [...event.target.classList].includes('x-out') ? event.target.parentElement.classList.toggle('hidden') : ''
+    
+    [...event.target.classList].includes('x-out') ? event.target.parentElement.classList.toggle('hidden') :
+    event.target.dataset.modalType === 'sign-up' ? displayGenericModal('sign-up') : 
+    event.target.dataset.modalType === 'sign-in' ? displayGenericModal('sign-in') : 
+    [...event.target.classList].includes('submit-btn') ? event.target.parentElement.parentElement.classList.toggle('hidden') : ''
 })
 
 createUserBtn.addEventListener("click", (event) => {
@@ -140,7 +143,7 @@ signInForm.addEventListener("input", () => {
             isValid = false
         }
     });
-    // loginBtn.disabled = !isValid
+    loginBtn.disabled = !isValid
 })
 
 //enabling or disabling buttons

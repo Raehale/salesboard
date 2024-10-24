@@ -22,12 +22,12 @@ currentSectionSelect.addEventListener("change", () => {
 export function displayGenericModal(type) {
     const modal = document.getElementById(`${type}-modal`)
     modal.classList.toggle('hidden')
-    // disableBtns()
+    disableBtns()
 }
 
 //hides the modal
 export function hideModal(selectedModal) {
-    selectedModal.style.display = "none"
+    selectedModal.classList.toggle("none")
 }
 
 //set dropdowns
