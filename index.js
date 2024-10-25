@@ -60,21 +60,23 @@ function taskCompletionNotif(task, total) {
 }
 
 //generic modal
-const loginBtnsEl = document.getElementById("login-btns")
-const logoutBtnEl = document.getElementById("logout-btn")
-const signUpBtn = document.getElementById("sign-up-btn")
-const signInBtn = document.getElementById("sign-in-btn")
-const buttonsArr = document.querySelector("#container").querySelectorAll(".btn")
-const createUserBtn = document.getElementById("create-user")
-const loginBtn = document.getElementById("login-btn")
-const logoutBtn = document.getElementById("log-out-btn")
-const signUpForm = document.getElementById("sign-up-form")
-const signInForm = document.getElementById("sign-in-form")
-const modals = document.getElementsByClassName("modal")
+const loginBtnsEl = document.getElementById("login-btns")   // section element containing sign in and sign up buttons
+const logoutBtnEl = document.getElementById("logout-btn")   // section element containing log out button (not used)
+const signUpBtn = document.getElementById("sign-up-btn")    // sign up button element
+const signInBtn = document.getElementById("sign-in-btn")    // sign in button element
+const progressBtnsArr = [watchedVideoBtnEl, projectCompleteBtnEl] // array containing Video Watched and Project Complete buttons
+export const loginBtnsArr = document.querySelector("#login-btns").querySelectorAll(".btn")     // array containing sign in and sign up buttons
+const createUserBtn = document.getElementById("create-user")    // Submit button for sign up form to create an account
+const loginBtn = document.getElementById("login-btn")           // Submit button for login form
+const logoutBtn = document.getElementById("log-out-btn")        // log out button element
+const signUpForm = document.getElementById("sign-up-form")      // form element to sign up
+const signInForm = document.getElementById("sign-in-form")      // form element to sign in
+const modals = document.getElementsByClassName("modal")         // not being used, maybe cut out?
 let isValid = false
 
 document.addEventListener("click", event => {
-    [...event.target.classList].includes('x-out') ? (event.target.parentElement.classList.toggle('hidden'), enableBtn(signInBtn), enableBtn(signUpBtn)) :
+    // [...event.target.classList].includes('x-out') ? (event.target.parentElement.classList.toggle('hidden'), enableBtn(signInBtn), enableBtn(signUpBtn)) :
+    [...event.target.classList].includes('x-out') ? (event.target.parentElement.classList.toggle('hidden'), toggleDisableBtns(loginBtnsArr)) :
     event.target === signUpBtn ? displayGenericModal('sign-up') : 
     event.target === signInBtn ? displayGenericModal('sign-in') : 
     [...event.target.classList].includes('submit-btn') ? event.target.parentElement.parentElement.classList.toggle('hidden') : ''
@@ -84,7 +86,7 @@ createUserBtn.addEventListener("click", (event) => {
     const signUpModal = event.target.parentElement.parentElement
 
     createUser()
-    enableBtns()
+    toggleDisableBtns(progressBtnsArr)
     hideModal(signUpModal)
 
     toggleLogInOutBtns()
@@ -93,7 +95,7 @@ createUserBtn.addEventListener("click", (event) => {
 })
 
 loginBtn.addEventListener("click", (event) => {
-    enableBtns()
+    toggleDisableBtns(progressBtnsArr)
     hideModal(event.target.parentElement.parentElement)
     storeLoginInfo(document.getElementById("login-username").value)
     getUserData(document.getElementById("login-username").value)
@@ -103,7 +105,7 @@ loginBtn.addEventListener("click", (event) => {
 })
 
 logoutBtn.addEventListener("click", () => {
-    disableBtns()
+    toggleDisableBtns(loginBtnsArr, progressBtnsArr)
     clearLoginInfo()
     toggleLogInOutBtns()
 
@@ -133,25 +135,15 @@ signInForm.addEventListener("input", () => {
 })
 
 //enabling or disabling buttons
-function enableBtns() {
-    buttonsArr.forEach(button => {
-        button.disabled = false;
-    });
-}
-
-export function disableBtns() {
-    buttonsArr.forEach(button => {
-        button.disabled = true;
-    });
+export function toggleDisableBtns(...buttonArrays){
+    buttonArrays.forEach(buttonArray =>
+        buttonArray.forEach(button => button.disabled = !button.disabled)
+    )
 }
 
 function toggleLogInOutBtns() {
     loginBtnsEl.classList.toggle("hidden")
     logoutBtnEl.classList.toggle("hidden")
-}
-
-function enableBtn(button) {
-    button.disabled = false
 }
 
 //handing info in local storage
@@ -244,5 +236,3 @@ function darkModeColors() {
     document.documentElement.style.setProperty("--accent", "#FFDF86")
     titleEl.style.textShadow = "0 0 10px var(--background-one)"
 }
-
-//Vicente was here
