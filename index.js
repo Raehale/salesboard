@@ -70,27 +70,13 @@ const loginBtn = document.getElementById("login-btn")
 const logoutBtn = document.getElementById("log-out-btn")
 const signUpForm = document.getElementById("sign-up-form")
 const signInForm = document.getElementById("sign-in-form")
+const modals = document.getElementsByClassName("modal")
 let isValid = false
 
-// document.querySelectorAll(".login-btn").forEach(loginBtn => {
-//     loginBtn.addEventListener("click", () => {
-//         displayGenericModal(`${loginBtn.dataset.modalType}`)
-//     })
-// })
-
-// signUpBtn.addEventListener("click", () => {
-//     displayGenericModal("sign-up")
-// })
-
-// signInBtn.addEventListener("click", () => {
-//     displayGenericModal("sign-in")
-// })
-
 document.addEventListener("click", event => {
-    
-    [...event.target.classList].includes('x-out') ? event.target.parentElement.classList.toggle('hidden') :
-    event.target.dataset.modalType === 'sign-up' ? displayGenericModal('sign-up') : 
-    event.target.dataset.modalType === 'sign-in' ? displayGenericModal('sign-in') : 
+    [...event.target.classList].includes('x-out') ? (event.target.parentElement.classList.toggle('hidden'), enableBtn(signInBtn), enableBtn(signUpBtn)) :
+    event.target === signUpBtn ? displayGenericModal('sign-up') : 
+    event.target === signInBtn ? displayGenericModal('sign-in') : 
     [...event.target.classList].includes('submit-btn') ? event.target.parentElement.parentElement.classList.toggle('hidden') : ''
 })
 

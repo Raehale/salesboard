@@ -6,6 +6,8 @@ const currentModuleSelect = document.getElementById("current-module")
 const currentSectionSelect = document.getElementById("current-section")
 const currentVideoSelect = document.getElementById("current-video")
 const currentProjectsSelect = document.getElementById("current-project")
+const signUpWrapper = document.getElementById("sign-up-wrapper")
+const signInWrapper = document.getElementById("sign-in-wrapper")
 
 createDropdownContent()
 
@@ -21,7 +23,7 @@ currentSectionSelect.addEventListener("change", () => {
 //displays the modal
 export function displayGenericModal(type) {
     const modal = document.getElementById(`${type}-modal`)
-    modal.classList.toggle('hidden')
+    modal.classList.toggle("hidden")
     disableBtns()
 }
 

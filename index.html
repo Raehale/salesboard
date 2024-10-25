@@ -99,7 +99,7 @@
                 </section>
             </main>
         </div>
-
+        <div class="modal-wrapper hidden">
         <modal id="sign-up-modal" class="sign-up-modal modal hidden">
             <i class="fa-solid fa-x x-out" id="x-sign-up"></i>
 
@@ -132,11 +132,11 @@
                     <label for="current-project" class="modal-label">What project are you on?</label>
                     <select id="current-project" name="current-project" class="modal-question" required></select>
                 </div>
-
+            
                 <button type="button" id="create-user" class="btn submit-btn" disabled>Create Account</button>
             </form>
         </modal>
-
+        </div> 
         <modal id="sign-in-modal" class="sign-in-modal modal hidden">
             <i class="fa-solid fa-x x-out" id="x-sign-in"></i>
             <h2 class="modal-header">Sign In!</h2>
@@ -149,7 +149,7 @@
                 <button type="button" id="login-btn" class="btn submit-btn" disabled>Login</button>
             </form>
         </modal>
-
+   
         <modal id="task-completion-notification" class="task-completion-notification">
         </modal>
 
