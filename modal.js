@@ -97,3 +97,20 @@ function createProjectsDropdown() {
             `
     }
 }
+
+
+//task completion modal
+export function taskCompletionNotif(task, total) {
+    const taskCompletionNotifModal = document.getElementById("task-completion-notification")
+
+    if (task === "video") {
+        taskCompletionNotifModal.textContent = `You watched a new video! Total videos watched: ${total}`
+    } else if (task === "project") {
+        taskCompletionNotifModal.textContent = `You completed a new project! Total projects completed: ${total}`
+    }
+
+    taskCompletionNotifModal.style.display = "flex"
+    setTimeout(() => {
+        taskCompletionNotifModal.style.display = "none"
+    }, 5000)
+}
