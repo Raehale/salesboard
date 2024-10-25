@@ -2,7 +2,7 @@ import { modulesObj } from "./videoData.js"
 import { projectsObj } from "./projectData.js"
 
 import { createUser } from "./createUser.js"
-import { hideModal, displayGenericModal } from "./modal.js"
+import { hideModal, displayGenericModal, taskCompletionNotif } from "./modal.js"
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 import { getDatabase, ref, onValue, remove } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js"
@@ -25,7 +25,7 @@ const projectCompleteBtnEl = document.getElementById("project-complete-btn")
 const totalProjectsEl = document.getElementById("total-projects")
 const overallProgLabelEl = document.getElementById("overall-prog-label")
 
-watchedVideoBtnEl.addEventListener("click", function(){
+watchedVideoBtnEl.addEventListener("click", function() {
     watchedToday++
     totalWatched++
     taskCompletionNotif("video", totalWatched)
@@ -35,29 +35,13 @@ watchedVideoBtnEl.addEventListener("click", function(){
     document.getElementById("overall-progress").innerText += "⏩"
 })
 
-projectCompleteBtnEl.addEventListener("click", function(){
+projectCompleteBtnEl.addEventListener("click", function() {
     totalProjects++
     document.getElementById("total-projects").innerText = totalProjects
     overallProgLabelEl.innerText = `Overall Progress - ${totalWatched + totalProjects}`
     document.getElementById("overall-progress").innerText += "🏅"
     taskCompletionNotif("project", totalProjects)
 })
-
-//task completion modal
-function taskCompletionNotif(task, total) {
-    const taskCompletionNotifModal = document.getElementById("task-completion-notification")
-
-    if (task === "video") {
-        taskCompletionNotifModal.textContent = `You watched a new video! Total videos watched: ${total}`
-    } else if (task === "project") {
-        taskCompletionNotifModal.textContent = `You completed a new project! Total projects completed: ${total}`
-    }
-
-    taskCompletionNotifModal.style.display = "flex"
-    setTimeout(() => {
-        taskCompletionNotifModal.style.display = "none"
-    }, 5000)
-}
 
 //generic modal
 const loginBtnsEl = document.getElementById("login-btns")
@@ -80,19 +64,18 @@ document.addEventListener("click", event => {
     [...event.target.classList].includes('submit-btn') ? event.target.parentElement.parentElement.classList.toggle('hidden') : ''
 })
 
-createUserBtn.addEventListener("click", (event) => {
+createUserBtn.addEventListener("click", function(event) {
     const signUpModal = event.target.parentElement.parentElement
 
     createUser()
     enableBtns()
     hideModal(signUpModal)
-
     toggleLogInOutBtns()
 
     loggedIn = true
 })
 
-loginBtn.addEventListener("click", (event) => {
+loginBtn.addEventListener("click", function(event) {
     enableBtns()
     hideModal(event.target.parentElement.parentElement)
     storeLoginInfo(document.getElementById("login-username").value)
@@ -102,7 +85,7 @@ loginBtn.addEventListener("click", (event) => {
     loggedIn = true
 })
 
-logoutBtn.addEventListener("click", () => {
+logoutBtn.addEventListener("click", function() {
     disableBtns()
     clearLoginInfo()
     toggleLogInOutBtns()
@@ -110,8 +93,8 @@ logoutBtn.addEventListener("click", () => {
     loggedIn = false
 })
 
-signUpForm.addEventListener("input", () => {
-    signUpForm.querySelectorAll(".modal-question").forEach(question => {
+signUpForm.addEventListener("input", function() {
+    signUpForm.querySelectorAll(".modal-question").forEach(function(question) {
         if (question.value !== "") {
             isValid = true
         } else {
@@ -121,26 +104,27 @@ signUpForm.addEventListener("input", () => {
     createUserBtn.disabled = !isValid
 })
 
-signInForm.addEventListener("input", () => {
-    signInForm.querySelectorAll(".modal-question").forEach(question => {
+signInForm.addEventListener("input", function() {
+    signInForm.querySelectorAll(".modal-question").forEach(function(question) {
         if (question.value !== "") {
             isValid = true
         } else {
             isValid = false
         }
     });
+
     loginBtn.disabled = !isValid
 })
 
 //enabling or disabling buttons
 function enableBtns() {
-    buttonsArr.forEach(button => {
+    buttonsArr.forEach(function(button) {
         button.disabled = false;
     });
 }
 
 export function disableBtns() {
-    buttonsArr.forEach(button => {
+    buttonsArr.forEach(function(button) {
         button.disabled = true;
     });
 }
@@ -167,7 +151,7 @@ function clearLoginInfo() {
 function getUserData(username) {
     onValue(progressBoardInDB, function(snapshot) {
         if (snapshot.exists()) {
-            Object.values(snapshot.val()).forEach(user => {
+            Object.values(snapshot.val()).forEach(function(user) {
                 if (user.username === username) {
                     displayProgress(user)
                 }
@@ -215,7 +199,7 @@ function timeToSeconds(currentTime) {
 const modeToggleEl = document.getElementById("mode-toggle")
 const titleEl = document.getElementById("title")
 
-modeToggleEl.addEventListener("click", () => {
+modeToggleEl.addEventListener("click", function() {
     modeToggleEl.classList.toggle("fa-toggle-off")
     modeToggleEl.classList.toggle("fa-toggle-on")
     if (modeToggleEl.classList.contains("fa-toggle-on")) {
