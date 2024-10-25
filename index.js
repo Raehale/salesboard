@@ -25,7 +25,7 @@ const projectCompleteBtnEl = document.getElementById("project-complete-btn")
 const totalProjectsEl = document.getElementById("total-projects")
 const overallProgLabelEl = document.getElementById("overall-prog-label")
 
-watchedVideoBtnEl.addEventListener("click", function(){
+watchedVideoBtnEl.addEventListener("click", function() {
     watchedToday++
     totalWatched++
     taskCompletionNotif("video", totalWatched)
@@ -35,7 +35,7 @@ watchedVideoBtnEl.addEventListener("click", function(){
     document.getElementById("overall-progress").innerText += "⏩"
 })
 
-projectCompleteBtnEl.addEventListener("click", function(){
+projectCompleteBtnEl.addEventListener("click", function() {
     totalProjects++
     document.getElementById("total-projects").innerText = totalProjects
     overallProgLabelEl.innerText = `Overall Progress - ${totalWatched + totalProjects}`
@@ -73,45 +73,44 @@ const signUpForm = document.getElementById("sign-up-form")
 const signInForm = document.getElementById("sign-in-form")
 let isValid = false
 
-document.querySelectorAll(".login-btn").forEach(loginBtn => {
-    loginBtn.addEventListener("click", () => {
+document.querySelectorAll(".login-btn").forEach(function(loginBtn) {
+    loginBtn.addEventListener("click", function() {
         displayGenericModal(`${loginBtn.dataset.modalType}`)
     })
 })
 
-signUpBtn.addEventListener("click", () => {
+signUpBtn.addEventListener("click", function() {
     displayGenericModal("sign-up")
 })
 
-signInBtn.addEventListener("click", () => {
+signInBtn.addEventListener("click", function() {
     displayGenericModal("sign-in")
 })
 
-xOutModalBtnsArr.forEach(button => {
-    button.addEventListener("click", event => {
+xOutModalBtnsArr.forEach(function(button) {
+    button.addEventListener("click", function(event) {
         const currentModal = event.target.parentElement
 
         hideModal(currentModal)
 
-        document.querySelectorAll(".login-btn").forEach(loginBtn => {
+        document.querySelectorAll(".login-btn").forEach(function(loginBtn) {
             enableBtn(loginBtn)
         })
     })
 })
 
-createUserBtn.addEventListener("click", (event) => {
+createUserBtn.addEventListener("click", function(event) {
     const signUpModal = event.target.parentElement.parentElement
 
     createUser()
     enableBtns()
     hideModal(signUpModal)
-
     toggleLogInOutBtns()
 
     loggedIn = true
 })
 
-loginBtn.addEventListener("click", (event) => {
+loginBtn.addEventListener("click", function(event) {
     enableBtns()
     hideModal(event.target.parentElement.parentElement)
     storeLoginInfo(document.getElementById("login-username").value)
@@ -121,7 +120,7 @@ loginBtn.addEventListener("click", (event) => {
     loggedIn = true
 })
 
-logoutBtn.addEventListener("click", () => {
+logoutBtn.addEventListener("click", function() {
     disableBtns()
     clearLoginInfo()
     toggleLogInOutBtns()
@@ -129,8 +128,8 @@ logoutBtn.addEventListener("click", () => {
     loggedIn = false
 })
 
-signUpForm.addEventListener("input", () => {
-    signUpForm.querySelectorAll(".modal-question").forEach(question => {
+signUpForm.addEventListener("input", function() {
+    signUpForm.querySelectorAll(".modal-question").forEach(function(question) {
         if (question.value !== "") {
             isValid = true
         } else {
@@ -140,26 +139,27 @@ signUpForm.addEventListener("input", () => {
     createUserBtn.disabled = !isValid
 })
 
-signInForm.addEventListener("input", () => {
-    signInForm.querySelectorAll(".modal-question").forEach(question => {
+signInForm.addEventListener("input", function() {
+    signInForm.querySelectorAll(".modal-question").forEach(function(question) {
         if (question.value !== "") {
             isValid = true
         } else {
             isValid = false
         }
     });
+
     loginBtn.disabled = !isValid
 })
 
 //enabling or disabling buttons
 function enableBtns() {
-    buttonsArr.forEach(button => {
+    buttonsArr.forEach(function(button) {
         button.disabled = false;
     });
 }
 
 export function disableBtns() {
-    buttonsArr.forEach(button => {
+    buttonsArr.forEach(function(button) {
         button.disabled = true;
     });
 }
@@ -186,7 +186,7 @@ function clearLoginInfo() {
 function getUserData(username) {
     onValue(progressBoardInDB, function(snapshot) {
         if (snapshot.exists()) {
-            Object.values(snapshot.val()).forEach(user => {
+            Object.values(snapshot.val()).forEach(function(user) {
                 if (user.username === username) {
                     displayProgress(user)
                 }
@@ -234,7 +234,7 @@ function timeToSeconds(currentTime) {
 const modeToggleEl = document.getElementById("mode-toggle")
 const titleEl = document.getElementById("title")
 
-modeToggleEl.addEventListener("click", () => {
+modeToggleEl.addEventListener("click", function() {
     modeToggleEl.classList.toggle("fa-toggle-off")
     modeToggleEl.classList.toggle("fa-toggle-on")
     if (modeToggleEl.classList.contains("fa-toggle-on")) {
