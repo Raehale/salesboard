@@ -116,65 +116,59 @@
                 </section>
             </main>
         </div>
-        <div class="modal-wrapper hidden">
-        <modal id="sign-up-modal" class="sign-up-modal modal hidden">
-            <i class="fa-solid fa-x x-out" id="x-sign-up"></i>
+        <div class="modal-wrapper sign-up-wrapper hidden" id="sign-up-wrapper">
+            <modal id="sign-up-modal" class="sign-up-modal modal">
+                <i class="fa-solid fa-x x-out" id="x-sign-up"></i>
 
-            <h2 class="modal-header">Sign Up!</h2>
+                <h2 class="modal-header ">Sign Up!</h2>
 
-            <form class="modal-form" id="sign-up-form">
-                <div class="modal-item whole-line-item">
-                    <label for="new-username" class="modal-label">Username</label>
-                    <input id="new-username" name="new-username" class="modal-question" required />
-                </div>
+                <form class="modal-form" id="sign-up-form">
+                    <div class="modal-item whole-line-item">
+                        <label for="new-username" class="modal-label">Username</label>
+                        <input id="new-username" name="new-username" class="modal-question" required />
+                    </div>
 
-                <hr />
+                    <hr />
 
-                <div class="modal-item">
-                    <label for="current-module" class="modal-label">What Module are you at?</label>
-                    <select id="current-module" name="current-module" class="modal-question" required></select>
-                </div>
+                    <div class="modal-item">
+                        <label for="current-module" class="modal-label">What Module are you at?</label>
+                        <select id="current-module" name="current-module" class="modal-question" required></select>
+                    </div>
 
-                <div class="modal-item">
-                    <label for="current-section" class="modal-label">What section are you on?</label>
-                    <select id="current-section" name="current-section" class="modal-question" required></select>
-                </div>
+                    <div class="modal-item">
+                        <label for="current-section" class="modal-label">What section are you on?</label>
+                        <select id="current-section" name="current-section" class="modal-question" required></select>
+                    </div>
 
-                <div class="modal-item">
-                    <label for="current-video" class="modal-label">What video are you on?</label>
-                    <select id="current-video" name="current-video" class="modal-question" required></select>
-                </div>
+                    <div class="modal-item">
+                        <label for="current-video" class="modal-label">What video are you on?</label>
+                        <select id="current-video" name="current-video" class="modal-question" required></select>
+                    </div>
 
-                <div class="modal-item">
-                    <label for="current-project" class="modal-label">What project are you on?</label>
-                    <select id="current-project" name="current-project" class="modal-question" required></select>
-                </div>
-            
-                <button type="button" id="create-user" class="btn submit-btn" disabled>Create Account</button>
-            </form>
-        </modal>
-<<<<<<< HEAD
+                    <div class="modal-item">
+                        <label for="current-project" class="modal-label">What project are you on?</label>
+                        <select id="current-project" name="current-project" class="modal-question" required></select>
+                    </div>
+                
+                    <button type="button" id="create-user" class="btn submit-btn" disabled>Create Account</button>
+                </form>
+            </modal>
         </div> 
-        <modal id="sign-in-modal" class="sign-in-modal modal hidden">
-            <i class="fa-solid fa-x x-out" id="x-sign-in"></i>
-=======
 
-        <modal id="sign-in-modal" class="sign-in-modal modal">
-            <i class="fa-solid fa-x x-out" id="x-out-modal"></i>
+        <div class="modal-wrapper sign-in-wrapper hidden" id="sign-in-wrapper">
+            <modal id="sign-in-modal" class="sign-in-modal modal">
+                <i class="fa-solid fa-x x-out" id="x-sign-in"></i>
+                <h2 class="modal-header">Sign In!</h2>
+                <form class="modal-form" id="sign-in-form">
+                    <div class="modal-item">
+                        <label for="login-username" class="modal-label">Username</label>
+                        <input id="login-username" name="login-username" class="modal-question" required />
+                    </div>
 
->>>>>>> upstream/main
-            <h2 class="modal-header">Sign In!</h2>
-
-            <form class="modal-form" id="sign-in-form">
-                <div class="modal-item">
-                    <label for="login-username" class="modal-label">Username</label>
-                    <input id="login-username" name="login-username" class="modal-question" required />
-                </div>
-
-                <button type="button" id="login-btn" class="btn submit-btn" disabled>Login</button>
-            </form>
-        </modal>
-   
+                    <button type="button" id="login-btn" class="btn submit-btn" disabled>Login</button>
+                </form>
+            </modal>
+        </div>
         <modal id="task-completion-notification" class="task-completion-notification">
         </modal>
 
