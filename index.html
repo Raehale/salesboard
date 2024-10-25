@@ -1,13 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <!-- meta -->
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- title -->
         <title>progress tracker</title>
+
+        <!-- google fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+        <!-- poppins font -->
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+        <!-- font awesome icons -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+        <!-- stylesheet -->
         <link rel="stylesheet" href="index.css">
     </head>
     <body>
@@ -16,15 +27,19 @@
                 <div class="mode-toggle">
                     <i class="fa-solid fa-toggle-off" id="mode-toggle"></i>
                 </div>
+
                 <h1 id="title">Progress Tracker</h1>
+
                 <section id="login-btns" class="inline-btns login-btns">
                     <div class="div-fifty">
                         <button id="sign-up-btn" class="btn login-btn" data-modal-type="sign-up">Sign Up</button>
                     </div>
+
                     <div class="div-fifty">
                         <button id="sign-in-btn" class="btn login-btn" data-modal-type="sign-in">Sign In</button>
                     </div>
                 </section>
+
                 <section id="logout-btn" class="hidden login-btns">
                     <button id="log-out-btn" class="btn">Log Out</button>
                 </section>
@@ -32,6 +47,7 @@
             <main>
                 <section class="display left-border">
                     <h2>Today's progress</h2>
+
                     <div class="tracker">
                         <div>
                             <h3 class="bubble-lable">Screen ⏱</h3>
@@ -53,7 +69,7 @@
                 <section class="actions">
 
                     <div class="timer">
-                      
+
                         <i class="fa-regular fa-clock"></i>
                         <span>00:00:00</spans>
                         <button class="select-icon no-btn-bg" disabled>
@@ -75,6 +91,7 @@
 
                 <section class="total-progress left-border">
                     <h2>Total Progress</h2>
+
                     <div class="progress-item">
                         <h3 class="progress-label" id="overall-prog-label">Overall Progress - 0</h3>
                         <p class="progress-display" id="overall-progress"></p>
@@ -139,7 +156,9 @@
 
         <modal id="sign-in-modal" class="sign-in-modal modal">
             <i class="fa-solid fa-x x-out" id="x-out-modal"></i>
+
             <h2 class="modal-header">Sign In!</h2>
+
             <form class="modal-form" id="sign-in-form">
                 <div class="modal-item">
                     <label for="login-username" class="modal-label">Username</label>
