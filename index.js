@@ -2,7 +2,7 @@ import { modulesObj } from "./videoData.js"
 import { projectsObj } from "./projectData.js"
 
 import { createUser } from "./createUser.js"
-import { hideModal, displayGenericModal } from "./modal.js"
+import { hideModal, displayGenericModal, taskCompletionNotif } from "./modal.js"
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 import { getDatabase, ref, onValue, remove } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js"
@@ -42,22 +42,6 @@ projectCompleteBtnEl.addEventListener("click", function(){
     document.getElementById("overall-progress").innerText += "🏅"
     taskCompletionNotif("project", totalProjects)
 })
-
-//task completion modal
-function taskCompletionNotif(task, total) {
-    const taskCompletionNotifModal = document.getElementById("task-completion-notification")
-
-    if (task === "video") {
-        taskCompletionNotifModal.textContent = `You watched a new video! Total videos watched: ${total}`
-    } else if (task === "project") {
-        taskCompletionNotifModal.textContent = `You completed a new project! Total projects completed: ${total}`
-    }
-
-    taskCompletionNotifModal.style.display = "flex"
-    setTimeout(() => {
-        taskCompletionNotifModal.style.display = "none"
-    }, 5000)
-}
 
 //generic modal
 const loginBtnsEl = document.getElementById("login-btns")
