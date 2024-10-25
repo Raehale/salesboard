@@ -2,7 +2,7 @@ import { modulesObj } from "./videoData.js"
 import { projectsObj } from "./projectData.js"
 
 import { createUser } from "./createUser.js"
-import { hideModal, displayGenericModal, taskCompletionNotif } from "./modal.js"
+import { displayGenericModal, taskCompletionNotif } from "./modal.js"
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 import { getDatabase, ref, onValue, remove } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js"
@@ -54,30 +54,31 @@ const loginBtn = document.getElementById("login-btn")
 const logoutBtn = document.getElementById("log-out-btn")
 const signUpForm = document.getElementById("sign-up-form")
 const signInForm = document.getElementById("sign-in-form")
-const modals = document.getElementsByClassName("modal")
+const signUpWrapper = document.getElementById("sign-up-wrapper")
+const signInWrapper = document.getElementById("sign-in-wrapper")
 let isValid = false
 
 document.addEventListener("click", event => {
-    [...event.target.classList].includes('x-out') ? (event.target.parentElement.classList.toggle('hidden'), enableBtn(signInBtn), enableBtn(signUpBtn)) :
-    event.target === signUpBtn ? displayGenericModal('sign-up') : 
+    [...event.target.classList].includes('x-out') ? event.target.parentElement.parentElement.classList.toggle('hidden') :
+    event.target === signUpBtn ? displayGenericModal('sign-up') :
+    event.target === signUpWrapper ? displayGenericModal('sign-up') : 
     event.target === signInBtn ? displayGenericModal('sign-in') : 
+    event.target === signInWrapper ? displayGenericModal('sign-in') :
     [...event.target.classList].includes('submit-btn') ? event.target.parentElement.parentElement.classList.toggle('hidden') : ''
 })
 
 createUserBtn.addEventListener("click", function(event) {
-    const signUpModal = event.target.parentElement.parentElement
-
     createUser()
     enableBtns()
-    hideModal(signUpModal)
+    displayGenericModal('sign-up')
     toggleLogInOutBtns()
 
     loggedIn = true
 })
 
-loginBtn.addEventListener("click", function(event) {
+loginBtn.addEventListener("click", function() {
     enableBtns()
-    hideModal(event.target.parentElement.parentElement)
+    displayGenericModal('sign-in')
     storeLoginInfo(document.getElementById("login-username").value)
     getUserData(document.getElementById("login-username").value)
     toggleLogInOutBtns()
