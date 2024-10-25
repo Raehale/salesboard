@@ -244,3 +244,5 @@ function darkModeColors() {
     document.documentElement.style.setProperty("--accent", "#FFDF86")
     titleEl.style.textShadow = "0 0 10px var(--background-one)"
 }
+
+//Vicente was here
