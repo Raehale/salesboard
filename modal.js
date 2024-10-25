@@ -9,12 +9,12 @@ const currentProjectsSelect = document.getElementById("current-project")
 
 createDropdownContent()
 
-currentModuleSelect.addEventListener("change", () => {
+currentModuleSelect.addEventListener("change", function() {
     createSectionDropdown()
     createVideoDropdown()
 })
 
-currentSectionSelect.addEventListener("change", () => {
+currentSectionSelect.addEventListener("change", function() {
     createVideoDropdown()
 })
 
@@ -87,7 +87,7 @@ function createVideoDropdown() {
 function createProjectsDropdown() {
     currentProjectsSelect.innerHTML = ""
     for (const group of Object.entries(projectsObj)) {
-        const groupOfProjects = group[1].map(project => {
+        const groupOfProjects = group[1].map(function(project) {
             return `<option value="${project}">${project}</option>`
         })
         currentProjectsSelect.innerHTML += `
