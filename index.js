@@ -2,7 +2,7 @@ import { modulesObj } from "./videoData.js"
 import { projectsObj } from "./projectData.js"
 
 import { createUser } from "./createUser.js"
-import { hideModal, displayGenericModal, taskCompletionNotif } from "./modal.js"
+import { displayGenericModal, taskCompletionNotif } from "./modal.js"
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 import { getDatabase, ref, onValue, remove } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js"
@@ -48,55 +48,37 @@ const loginBtnsEl = document.getElementById("login-btns")
 const logoutBtnEl = document.getElementById("logout-btn")
 const signUpBtn = document.getElementById("sign-up-btn")
 const signInBtn = document.getElementById("sign-in-btn")
-const xOutModalBtnsArr = document.querySelectorAll(".x-out")
 const buttonsArr = document.querySelector("#container").querySelectorAll(".btn")
 const createUserBtn = document.getElementById("create-user")
 const loginBtn = document.getElementById("login-btn")
 const logoutBtn = document.getElementById("log-out-btn")
 const signUpForm = document.getElementById("sign-up-form")
 const signInForm = document.getElementById("sign-in-form")
+const signUpWrapper = document.getElementById("sign-up-wrapper")
+const signInWrapper = document.getElementById("sign-in-wrapper")
 let isValid = false
 
-document.querySelectorAll(".login-btn").forEach(function(loginBtn) {
-    loginBtn.addEventListener("click", function() {
-        displayGenericModal(`${loginBtn.dataset.modalType}`)
-    })
-})
-
-signUpBtn.addEventListener("click", function() {
-    displayGenericModal("sign-up")
-})
-
-signInBtn.addEventListener("click", function() {
-    displayGenericModal("sign-in")
-})
-
-xOutModalBtnsArr.forEach(function(button) {
-    button.addEventListener("click", function(event) {
-        const currentModal = event.target.parentElement
-
-        hideModal(currentModal)
-
-        document.querySelectorAll(".login-btn").forEach(function(loginBtn) {
-            enableBtn(loginBtn)
-        })
-    })
+document.addEventListener("click", event => {
+    [...event.target.classList].includes('x-out') ? event.target.parentElement.parentElement.classList.toggle('hidden') :
+    event.target === signUpBtn ? displayGenericModal('sign-up') :
+    event.target === signUpWrapper ? displayGenericModal('sign-up') : 
+    event.target === signInBtn ? displayGenericModal('sign-in') : 
+    event.target === signInWrapper ? displayGenericModal('sign-in') :
+    [...event.target.classList].includes('submit-btn') ? event.target.parentElement.parentElement.classList.toggle('hidden') : ''
 })
 
 createUserBtn.addEventListener("click", function(event) {
-    const signUpModal = event.target.parentElement.parentElement
-
     createUser()
     enableBtns()
-    hideModal(signUpModal)
+    displayGenericModal('sign-up')
     toggleLogInOutBtns()
 
     loggedIn = true
 })
 
-loginBtn.addEventListener("click", function(event) {
+loginBtn.addEventListener("click", function() {
     enableBtns()
-    hideModal(event.target.parentElement.parentElement)
+    displayGenericModal('sign-in')
     storeLoginInfo(document.getElementById("login-username").value)
     getUserData(document.getElementById("login-username").value)
     toggleLogInOutBtns()
