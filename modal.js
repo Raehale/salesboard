@@ -1,6 +1,6 @@
 import { modulesObj } from "./videoData.js"
 import { projectsObj } from "./projectData.js"
-import { disableBtns } from "./index.js"
+import { toggleDisableBtns, loginBtnsArr } from "./index.js"
 
 const currentModuleSelect = document.getElementById("current-module")
 const currentSectionSelect = document.getElementById("current-section")
@@ -22,9 +22,15 @@ currentSectionSelect.addEventListener("change", function() {
 
 //displays the modal
 export function displayGenericModal(type) {
-    const modalWrapper = document.getElementById(`${type}-wrapper`)
-    modalWrapper.classList.toggle("hidden")
-    
+    const modal = document.getElementById(`${type}-modal`)
+    modal.classList.toggle("hidden")
+    toggleDisableBtns(loginBtnsArr)
+}
+
+//hides the modal
+export function hideModal(selectedModal) {
+    selectedModal.classList.toggle("none")
+
 }
 
 //set dropdowns
