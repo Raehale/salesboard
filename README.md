@@ -17,13 +17,34 @@ Progress Tracker is a site that tracks a user's progress on the Scrimba front en
 * JavaScript
 
 ---
+## Style Guide
+### Dark Mode Colors:
+<ul>
+    <li>Off-White: #DED8DD</li>
+    <li>Off-Black: #252525</li>
+    <li>Purple: #44354A</li>
+    <li>Maroon: #2D1420</li>
+    <li>Pink: #9E4770</li>
+    <li>Yellow: #FFDF86</li>
+</ul>
+
+### Light Mode Colors:
+<ul>
+    <li>Off-White: #DED8DD</li>
+    <li>Off-Black: #252525</li>
+    <li>Light Purple: #BDABC4</li>
+    <li>Dark Purple: #6C4766</li>
+    <li>Pink: #DEA6C1</li>
+    <li>Yellow: #FFDF86</li>
+</ul>
+---
 
 ## Contributors
 |Name|Email|Github|
 |----|-----|------|
 |Fadumo|fahmo228@gmail.com|[fame372](https://github.com/fame372)|
 |Vicente|vicenterh99@gmail.com|[vrhernandez](https://github.com/vrhernandez)|
-|Sam Craig|email|Github|
+|Sam Craig|samcraig70@gmail.com|[Samcraig77](https://github.com/Samcraig77)|
 |Rae|alyssarae98ha@gmail.com|[RaeHale](https://github.com/Raehale)|
 
 ---
