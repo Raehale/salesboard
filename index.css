@@ -262,6 +262,15 @@ hr {
     margin: 0 auto;
 }
 
+.modal-side-by-side-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-side-by-side-container > .modal-item {
+    width: 45%;
+}
+
 .modal-item {
     display: grid;
 }

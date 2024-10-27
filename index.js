@@ -12,6 +12,8 @@ const appSettings = { databaseURL: "https://progress-board-default-rtdb.firebase
 const app = initializeApp(appSettings)
 const database = getDatabase(app)
 export const progressBoardInDB = ref(database, "progressBoard")
+const signUpWrapper = document.getElementById("sign-up-wrapper")
+const signInWrapper = document.getElementById("sign-in-wrapper")
 
 // temp data, will be added to local storage
 const watchedVideos = []
@@ -55,7 +57,6 @@ const loginBtn = document.getElementById("login-btn")           // Submit button
 const logoutBtn = document.getElementById("log-out-btn")        // log out button element
 const signUpForm = document.getElementById("sign-up-form")      // form element to sign up
 const signInForm = document.getElementById("sign-in-form")      // form element to sign in
-const modals = document.getElementsByClassName("modal")         // not being used, maybe cut out?
 let isValid = false
 
 document.addEventListener("click", event => {
@@ -78,7 +79,7 @@ createUserBtn.addEventListener("click", function(event) {
 
 
 loginBtn.addEventListener("click", function() {
-  toggleDisableBtns(progressBtnsArr)
+    toggleDisableBtns(progressBtnsArr)
     displayGenericModal('sign-in')
     storeLoginInfo(document.getElementById("login-username").value)
     getUserData(document.getElementById("login-username").value)
