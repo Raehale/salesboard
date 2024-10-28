@@ -107,7 +107,8 @@ function updateDataDisplay(userData) {
     const userCurrentVideo = userData.video
     const userCurrentProject = userData.project
     const userCurrentUsername = userData.username
-    videosWatched(userCurrentModule, userCurrentSection, userCurrentVideo)
+    console.log(userData)
+    videosWatched(userCurrentVideo)
 }
 // function displayProgress(userData) {
 //     videosWatched(userData.module, userData.section, userData.video)
@@ -116,10 +117,9 @@ let totalVideosWatched = 0
 let totalSecondsWatched = 0
 
 //gets the total videos watched and how many hours of vieos have been watched
-function videosWatched(module, section, video) {
+function videosWatched(video) {
     try {
-        const totalSecondsWatched = getCurrentVideoInSeconds(module, section, video)
-        console.log(totalSecondsWatched)
+        const totalSecondsWatched = getCurrentVideoInSeconds(video)
         const totalMinutesWatched = getTotalMinutesWatched(totalSecondsWatched)
         const totalHoursWatched = getTotalHoursWatched(totalMinutesWatched)
         displayTimeWatched(totalHoursWatched)
@@ -206,7 +206,7 @@ function getTotalVideosWatched(totalVideosWatched) {
 
 //display hours watched
 function displayVideosWatched(totalHoursWatched) {
-    document.getElementById("videos-watched").textContent = `${totalVideosWatched}`
+    document.getElementById("videos-watched").textContent = `${totalHoursWatched}`
 }
 
 function displayHoursWatched(totalHoursWatched) {
