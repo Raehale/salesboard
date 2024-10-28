@@ -109,8 +109,8 @@
                     </div>
 
                     <div class="watched-item">
-                        <h3 class="watched-label">Hours Watched</h3>
-                        <p class="watched-display" id="hours-watched">0</p>
+                        <h3 class="watched-label">Time Watched</h3>
+                        <p class="watched-display" id="time-watched">0</p>
                     </div>
                 </section>
             </main>
@@ -179,9 +179,17 @@
                 <i class="fa-solid fa-x x-out" id="x-sign-in"></i>
                 <h2 class="modal-header">Sign In!</h2>
                 <form class="modal-form" id="sign-in-form">
-                    <div class="modal-item">
-                        <label for="login-username" class="modal-label">Username</label>
-                        <input id="login-username" name="login-username" class="modal-question" required />
+
+                    <div class="modal-side-by-side-container">
+                        <div class="modal-item whole-line-item">
+                            <label for="username-email" class="modal-label">Username/Email</label>
+                            <input id="username-email" name="username-email" class="modal-question" required />
+                        </div>
+
+                        <div class="modal-item whole-line-item">
+                            <label for="password" class="modal-label">Password</label>
+                            <input type="password" id="password" name="password" class="modal-question" required />
+                        </div>
                     </div>
 
                     <button type="button" id="login-btn" class="btn submit-btn" disabled>Login</button>
