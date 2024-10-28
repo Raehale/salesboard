@@ -82,13 +82,11 @@ export function loginUser() {
 
 //gets the data for a user
 function getUserData(userId) {
-    // console.log(userId)
     const userRef = ref(database, 'users/' + userId)
     onValue(userRef, (snapshot) => {
         const data = snapshot.val()
         updateDataDisplay(data)
     })
-    // console.log(userRef)
 }
 // export function getUserData(username, password) {
 //     onValue(progressBoardInDB, function(snapshot) {
@@ -104,7 +102,6 @@ function getUserData(userId) {
 
 //displays the users data
 function updateDataDisplay(userData) {
-    console.log(userData)
     const userCurrentModule = userData.module
     const userCurrentSection = userData.section
     const userCurrentVideo = userData.video
@@ -122,8 +119,9 @@ let totalSecondsWatched = 0
 function videosWatched(module, section, video) {
     try {
         const totalSecondsWatched = getCurrentVideoInSeconds(module, section, video)
+        console.log(totalSecondsWatched)
         const totalMinutesWatched = getTotalMinutesWatched(totalSecondsWatched)
-        const totalHoursWatched = getTotalHoursWatched(totalHoursWatched)
+        const totalHoursWatched = getTotalHoursWatched(totalMinutesWatched)
         displayTimeWatched(totalHoursWatched)
     } catch (error) {
         console.error("Couldn't load data:", error)
@@ -150,7 +148,8 @@ function videosWatched(module, section, video) {
 
 function getTotalSeconds(currentVideo) {
     for (const module of Object.entries(modulesObj)) {
-        return getCurrentSection(module, currentVideo)
+        getCurrentSection(module, currentVideo)
+        return timeToSeconds(currentVideo)
     }
 }
 
@@ -193,8 +192,8 @@ function getTotalMinutesWatched(totalSecondsWatched) {
     return totalMinutesWatched
 }
 
-function getTotalHoursWatched(totalMintutesWatched) {
-    const totalHoursWatched = Math.ceil(totalMintutesWatched / 60)
+function getTotalHoursWatched(totalMinutesWatched) {
+    const totalHoursWatched = Math.ceil(totalMinutesWatched / 60)
     displayVideosWatched(totalHoursWatched)
     displayHoursWatched(totalHoursWatched)
 
@@ -211,7 +210,7 @@ function displayVideosWatched(totalHoursWatched) {
 }
 
 function displayHoursWatched(totalHoursWatched) {
-    document.getElementById("hours-watched").textContent = `${totalHoursWatched}`
+    document.getElementById("time-watched").textContent = `${totalHoursWatched}`
 }
 
 //display total videos watched
