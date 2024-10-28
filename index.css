@@ -206,23 +206,33 @@ hr {
 
 /***MODAL***/
 /**SIGN UP**/
+
+.modal-wrapper{
+    position: fixed;
+    top: 0;
+    bottom:0;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: transparent;
+    z-index: 1;
+    
+}
+
 .modal {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-
-    display: none; /*grid when displayed*/
-
+    display: grid;
     color: var(--text);
-
     background-color: var(--background-one);
-
     min-width: 80%;
-
     padding: 2rem;
     border-radius: 20px;
     box-shadow: 0 0 100px 10px var(--background-one);
+    z-index: 2;
 }
 
 .x-out {
@@ -276,6 +286,10 @@ select.modal-question {
     margin: 0 auto;
 }
 
+.hidden {
+    display: none;
+}
+
 /**NOTIFICATION**/
 .task-completion-notification {
     display: none;
@@ -291,6 +305,7 @@ select.modal-question {
     padding: 2rem;
     border-radius: 8px 8px 0 8px;
 }
+
 
 
 /***DESKTOP***/
@@ -452,8 +467,4 @@ select.modal-question {
 
     }
 
-}
-
-.hidden {
-    display: none;
 }

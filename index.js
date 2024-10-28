@@ -2,7 +2,7 @@ import { modulesObj } from "./videoData.js"
 import { projectsObj } from "./projectData.js"
 
 import { createUser } from "./createUser.js"
-import { hideModal, displayGenericModal } from "./modal.js"
+import { displayGenericModal, taskCompletionNotif } from "./modal.js"
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 import { getDatabase, ref, onValue, remove } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js"
@@ -25,7 +25,7 @@ const projectCompleteBtnEl = document.getElementById("project-complete-btn")
 const totalProjectsEl = document.getElementById("total-projects")
 const overallProgLabelEl = document.getElementById("overall-prog-label")
 
-watchedVideoBtnEl.addEventListener("click", function(){
+watchedVideoBtnEl.addEventListener("click", function() {
     watchedToday++
     totalWatched++
     taskCompletionNotif("video", totalWatched)
@@ -35,7 +35,7 @@ watchedVideoBtnEl.addEventListener("click", function(){
     document.getElementById("overall-progress").innerText += "⏩"
 })
 
-projectCompleteBtnEl.addEventListener("click", function(){
+projectCompleteBtnEl.addEventListener("click", function() {
     totalProjects++
     document.getElementById("total-projects").innerText = totalProjects
     overallProgLabelEl.innerText = `Overall Progress - ${totalWatched + totalProjects}`
@@ -43,77 +43,43 @@ projectCompleteBtnEl.addEventListener("click", function(){
     taskCompletionNotif("project", totalProjects)
 })
 
-//task completion modal
-function taskCompletionNotif(task, total) {
-    const taskCompletionNotifModal = document.getElementById("task-completion-notification")
-
-    if (task === "video") {
-        taskCompletionNotifModal.textContent = `You watched a new video! Total videos watched: ${total}`
-    } else if (task === "project") {
-        taskCompletionNotifModal.textContent = `You completed a new project! Total projects completed: ${total}`
-    }
-
-    taskCompletionNotifModal.style.display = "flex"
-    setTimeout(() => {
-        taskCompletionNotifModal.style.display = "none"
-    }, 5000)
-}
-
 //generic modal
-const loginBtnsEl = document.getElementById("login-btns")
-const logoutBtnEl = document.getElementById("logout-btn")
-const signUpBtn = document.getElementById("sign-up-btn")
-const signInBtn = document.getElementById("sign-in-btn")
-const xOutModalBtnsArr = document.querySelectorAll(".x-out")
-const buttonsArr = document.querySelector("#container").querySelectorAll(".btn")
-const createUserBtn = document.getElementById("create-user")
-const loginBtn = document.getElementById("login-btn")
-const logoutBtn = document.getElementById("log-out-btn")
-const signUpForm = document.getElementById("sign-up-form")
-const signInForm = document.getElementById("sign-in-form")
+const loginBtnsEl = document.getElementById("login-btns")   // section element containing sign in and sign up buttons
+const logoutBtnEl = document.getElementById("logout-btn")   // section element containing log out button (not used)
+const signUpBtn = document.getElementById("sign-up-btn")    // sign up button element
+const signInBtn = document.getElementById("sign-in-btn")    // sign in button element
+const progressBtnsArr = [watchedVideoBtnEl, projectCompleteBtnEl] // array containing Video Watched and Project Complete buttons
+export const loginBtnsArr = document.querySelector("#login-btns").querySelectorAll(".btn")     // array containing sign in and sign up buttons
+const createUserBtn = document.getElementById("create-user")    // Submit button for sign up form to create an account
+const loginBtn = document.getElementById("login-btn")           // Submit button for login form
+const logoutBtn = document.getElementById("log-out-btn")        // log out button element
+const signUpForm = document.getElementById("sign-up-form")      // form element to sign up
+const signInForm = document.getElementById("sign-in-form")      // form element to sign in
+const modals = document.getElementsByClassName("modal")         // not being used, maybe cut out?
 let isValid = false
 
-document.querySelectorAll(".login-btn").forEach(loginBtn => {
-    loginBtn.addEventListener("click", () => {
-        displayGenericModal(`${loginBtn.dataset.modalType}`)
-    })
+document.addEventListener("click", event => {
+    // [...event.target.classList].includes('x-out') ? (event.target.parentElement.classList.toggle('hidden'), enableBtn(signInBtn), enableBtn(signUpBtn)) :
+    [...event.target.classList].includes('x-out') ? (event.target.parentElement.classList.toggle('hidden'), toggleDisableBtns(loginBtnsArr)) :
+    event.target === signUpBtn ? displayGenericModal('sign-up') : 
+    event.target === signInBtn ? displayGenericModal('sign-in') : 
+    event.target === signInWrapper ? displayGenericModal('sign-in') :
+    [...event.target.classList].includes('submit-btn') ? event.target.parentElement.parentElement.classList.toggle('hidden') : ''
 })
 
-signUpBtn.addEventListener("click", () => {
-    displayGenericModal("sign-up")
-})
-
-signInBtn.addEventListener("click", () => {
-    displayGenericModal("sign-in")
-})
-
-xOutModalBtnsArr.forEach(button => {
-    button.addEventListener("click", event => {
-        const currentModal = event.target.parentElement
-
-        hideModal(currentModal)
-
-        document.querySelectorAll(".login-btn").forEach(loginBtn => {
-            enableBtn(loginBtn)
-        })
-    })
-})
-
-createUserBtn.addEventListener("click", (event) => {
-    const signUpModal = event.target.parentElement.parentElement
-
+createUserBtn.addEventListener("click", function(event) {
     createUser()
-    enableBtns()
-    hideModal(signUpModal)
-
+    toggleDisableBtns(progressBtnsArr)
+    displayGenericModal('sign-up')
     toggleLogInOutBtns()
 
     loggedIn = true
 })
 
-loginBtn.addEventListener("click", (event) => {
-    enableBtns()
-    hideModal(event.target.parentElement.parentElement)
+
+loginBtn.addEventListener("click", function() {
+  toggleDisableBtns(progressBtnsArr)
+    displayGenericModal('sign-in')
     storeLoginInfo(document.getElementById("login-username").value)
     getUserData(document.getElementById("login-username").value)
     toggleLogInOutBtns()
@@ -121,16 +87,16 @@ loginBtn.addEventListener("click", (event) => {
     loggedIn = true
 })
 
-logoutBtn.addEventListener("click", () => {
-    disableBtns()
+logoutBtn.addEventListener("click", function() {
+    toggleDisableBtns(loginBtnsArr, progressBtnsArr)
     clearLoginInfo()
     toggleLogInOutBtns()
 
     loggedIn = false
 })
 
-signUpForm.addEventListener("input", () => {
-    signUpForm.querySelectorAll(".modal-question").forEach(question => {
+signUpForm.addEventListener("input", function() {
+    signUpForm.querySelectorAll(".modal-question").forEach(function(question) {
         if (question.value !== "") {
             isValid = true
         } else {
@@ -140,37 +106,28 @@ signUpForm.addEventListener("input", () => {
     createUserBtn.disabled = !isValid
 })
 
-signInForm.addEventListener("input", () => {
-    signInForm.querySelectorAll(".modal-question").forEach(question => {
+signInForm.addEventListener("input", function() {
+    signInForm.querySelectorAll(".modal-question").forEach(function(question) {
         if (question.value !== "") {
             isValid = true
         } else {
             isValid = false
         }
     });
+
     loginBtn.disabled = !isValid
 })
 
 //enabling or disabling buttons
-function enableBtns() {
-    buttonsArr.forEach(button => {
-        button.disabled = false;
-    });
-}
-
-export function disableBtns() {
-    buttonsArr.forEach(button => {
-        button.disabled = true;
-    });
+export function toggleDisableBtns(...buttonArrays){
+    buttonArrays.forEach(buttonArray =>
+        buttonArray.forEach(button => button.disabled = !button.disabled)
+    )
 }
 
 function toggleLogInOutBtns() {
     loginBtnsEl.classList.toggle("hidden")
     logoutBtnEl.classList.toggle("hidden")
-}
-
-function enableBtn(button) {
-    button.disabled = false
 }
 
 //handing info in local storage
@@ -186,7 +143,7 @@ function clearLoginInfo() {
 function getUserData(username) {
     onValue(progressBoardInDB, function(snapshot) {
         if (snapshot.exists()) {
-            Object.values(snapshot.val()).forEach(user => {
+            Object.values(snapshot.val()).forEach(function(user) {
                 if (user.username === username) {
                     displayProgress(user)
                 }
@@ -234,7 +191,7 @@ function timeToSeconds(currentTime) {
 const modeToggleEl = document.getElementById("mode-toggle")
 const titleEl = document.getElementById("title")
 
-modeToggleEl.addEventListener("click", () => {
+modeToggleEl.addEventListener("click", function() {
     modeToggleEl.classList.toggle("fa-toggle-off")
     modeToggleEl.classList.toggle("fa-toggle-on")
     if (modeToggleEl.classList.contains("fa-toggle-on")) {

@@ -1,34 +1,36 @@
 import { modulesObj } from "./videoData.js"
 import { projectsObj } from "./projectData.js"
-import { disableBtns } from "./index.js"
+import { toggleDisableBtns, loginBtnsArr } from "./index.js"
 
 const currentModuleSelect = document.getElementById("current-module")
 const currentSectionSelect = document.getElementById("current-section")
 const currentVideoSelect = document.getElementById("current-video")
 const currentProjectsSelect = document.getElementById("current-project")
+const signUpWrapper = document.getElementById("sign-up-wrapper")
+const signInWrapper = document.getElementById("sign-in-wrapper")
 
 createDropdownContent()
 
-currentModuleSelect.addEventListener("change", () => {
+currentModuleSelect.addEventListener("change", function() {
     createSectionDropdown()
     createVideoDropdown()
 })
 
-currentSectionSelect.addEventListener("change", () => {
+currentSectionSelect.addEventListener("change", function() {
     createVideoDropdown()
 })
 
 //displays the modal
 export function displayGenericModal(type) {
     const modal = document.getElementById(`${type}-modal`)
-    modal.style.display = "grid"
-
-    disableBtns()
+    modal.classList.toggle("hidden")
+    toggleDisableBtns(loginBtnsArr)
 }
 
 //hides the modal
 export function hideModal(selectedModal) {
-    selectedModal.style.display = "none"
+    selectedModal.classList.toggle("none")
+
 }
 
 //set dropdowns
@@ -87,7 +89,7 @@ function createVideoDropdown() {
 function createProjectsDropdown() {
     currentProjectsSelect.innerHTML = ""
     for (const group of Object.entries(projectsObj)) {
-        const groupOfProjects = group[1].map(project => {
+        const groupOfProjects = group[1].map(function(project) {
             return `<option value="${project}">${project}</option>`
         })
         currentProjectsSelect.innerHTML += `
@@ -96,4 +98,21 @@ function createProjectsDropdown() {
                 </optgroup>
             `
     }
+}
+
+
+//task completion modal
+export function taskCompletionNotif(task, total) {
+    const taskCompletionNotifModal = document.getElementById("task-completion-notification")
+
+    if (task === "video") {
+        taskCompletionNotifModal.textContent = `You watched a new video! Total videos watched: ${total}`
+    } else if (task === "project") {
+        taskCompletionNotifModal.textContent = `You completed a new project! Total projects completed: ${total}`
+    }
+
+    taskCompletionNotifModal.style.display = "flex"
+    setTimeout(() => {
+        taskCompletionNotifModal.style.display = "none"
+    }, 5000)
 }
