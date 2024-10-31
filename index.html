@@ -68,7 +68,7 @@
 
                 <section class="actions">
 
-                    <div class="inline-btns">
+                  <div class="inline-btns">
                         <div class="div-fifty">
                             <button id="watched-video-btn" class="btn" disabled>Video Watched</button>
                         </div>
@@ -114,9 +114,29 @@
                 <h2 class="modal-header ">Sign Up!</h2>
 
                 <form class="modal-form" id="sign-up-form">
-                    <div class="modal-item whole-line-item">
-                        <label for="new-username" class="modal-label">Username</label>
-                        <input id="new-username" name="new-username" class="modal-question" required />
+
+                    <div class="modal-side-by-side-container">
+                        <div class="modal-item whole-line-item">
+                            <label for="new-username" class="modal-label">Username</label>
+                            <input id="new-username" name="new-username" class="modal-question" required />
+                        </div>
+
+                        <div class="modal-item whole-line-item">
+                            <label for="new-email" class="modal-label">Email</label>
+                            <input id="new-email" name="new-email" class="modal-question" required />
+                        </div>
+                    </div>
+
+                    <div class="modal-side-by-side-container">
+                        <div class="modal-item whole-line-item">
+                            <label for="new-password" class="modal-label">Password</label>
+                            <input id="new-password" name="new-password" class="modal-question" required />
+                        </div>
+
+                        <div class="modal-item whole-line-item">
+                            <label for="new-password-confirm" class="modal-label">Confirm Password</label>
+                            <input id="new-password-confirm" name="new-password-confirm" class="modal-question" required />
+                        </div>
                     </div>
 
                     <hr />
@@ -151,9 +171,17 @@
                 <i class="fa-solid fa-x x-out" id="x-sign-in"></i>
                 <h2 class="modal-header">Sign In!</h2>
                 <form class="modal-form" id="sign-in-form">
-                    <div class="modal-item">
-                        <label for="login-username" class="modal-label">Username</label>
-                        <input id="login-username" name="login-username" class="modal-question" required />
+
+                    <div class="modal-side-by-side-container">
+                        <div class="modal-item whole-line-item">
+                            <label for="username-email" class="modal-label">Username/Email</label>
+                            <input id="username-email" name="username-email" class="modal-question" required />
+                        </div>
+
+                        <div class="modal-item whole-line-item">
+                            <label for="password" class="modal-label">Password</label>
+                            <input type="password" id="password" name="password" class="modal-question" required />
+                        </div>
                     </div>
 
                     <button type="button" id="login-btn" class="btn submit-btn" disabled>Login</button>

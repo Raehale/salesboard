@@ -183,11 +183,6 @@ hr {
     justify-content: space-between;
 }
 
-.watched div {
-    width: 49%;
-    height: 100%;
-}
-
 .watched-label {
     font-size: 20px;
 
@@ -202,6 +197,15 @@ hr {
     padding: 8px 0;
     border-radius: 50px;
     margin-top: 10px;
+}
+
+.watched-times {
+    display: flex;
+    gap: 1rem;
+}
+
+.watched-time-display {
+    width: 10rem;
 }
 
 /***MODAL***/
@@ -259,6 +263,15 @@ hr {
     width: 80%;
 
     margin: 0 auto;
+}
+
+.modal-side-by-side-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-side-by-side-container > .modal-item {
+    width: 45%;
 }
 
 .modal-item {
@@ -424,8 +437,6 @@ select.modal-question {
     }
 
     .watched {
-        width: 50%;
-
         margin-top: 2rem;
         gap: 4rem;
     }
