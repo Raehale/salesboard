@@ -62,6 +62,9 @@ function addDataToUser(userId) {
 }
 
 //log user in
+let totalVideosWatched = 0
+let totalSecondsWatched = 0
+
 export function loginUser() {
     const userEmailInputVal = document.getElementById("username-email").value
     const userPassInputVal = document.getElementById("password").value
@@ -80,7 +83,6 @@ export function loginUser() {
     })
 }
 
-//gets the data for a user
 function getUserData(userId) {
     const userRef = ref(database, 'users/' + userId)
     onValue(userRef, (snapshot) => {
@@ -88,96 +90,53 @@ function getUserData(userId) {
         updateDataDisplay(data)
     })
 }
-// export function getUserData(username, password) {
-//     onValue(progressBoardInDB, function(snapshot) {
-//         if (snapshot.exists()) {
-//             Object.values(snapshot.val()).forEach(function(user) {
-//                 if (user.username === username) {
-//                     displayProgress(user)
-//                 }
-//             })
-//         }
-//     })
-// }
 
 //displays the users data
 function updateDataDisplay(userData) {
-    const userCurrentModule = userData.module
-    const userCurrentSection = userData.section
     const userCurrentVideo = userData.video
-    const userCurrentProject = userData.project
-    const userCurrentUsername = userData.username
-    console.log(userData)
     videosWatched(userCurrentVideo)
 }
-// function displayProgress(userData) {
-//     videosWatched(userData.module, userData.section, userData.video)
-// }
-let totalVideosWatched = 0
-let totalSecondsWatched = 0
 
 //gets the total videos watched and how many hours of vieos have been watched
 function videosWatched(video) {
     try {
-        const totalSecondsWatched = getCurrentVideoInSeconds(video)
-        const totalMinutesWatched = getTotalMinutesWatched(totalSecondsWatched)
-        const totalHoursWatched = getTotalHoursWatched(totalMinutesWatched)
-        displayTimeWatched(totalHoursWatched)
+        getTotals(video)
     } catch (error) {
         console.error("Couldn't load data:", error)
     }
-    // let totalVideosWatched = 0
-    // let totalSecondsWatched = 0
-    // for (const module of Object.entries(modulesObj)) {
-    //     for (const section of Object.entries(module[1])) {
-    //         for (const video of Object.entries(section[1])) {
-    //             if (video[0] !== currentvideo) {
-    //                 totalVideosWatched ++
-    //                 totalSecondsWatched += timeToSeconds(video[1])
-    //             } else if ( video[0] === currentvideo ) {
-    //                 const totalMinutesWatched = Math.ceil(totalSecondsWatched / 60)
-    //                 const totalHoursWatched = Math.ceil(totalMinutesWatched / 60)
-    //                 document.getElementById("videos-watched").textContent = `${totalVideosWatched}`
-    //                 document.getElementById("hours-watched").textContent = `${totalHoursWatched}`
-    //                 displayVideosWatched()
-    //             }
-    //         }
-    //     }
-    // }
 }
 
-function getTotalSeconds(currentVideo) {
-    for (const module of Object.entries(modulesObj)) {
-        getCurrentSection(module, currentVideo)
-        return timeToSeconds(currentVideo)
-    }
-}
+function getTotals(currentVideo) {
+    for (const moduleObj of Object.entries(modulesObj)) {
+        for (const module of Object.entries(moduleObj)) {
+            module.forEach(sectionObj => {
 
-function getCurrentSection(moduleObj, currentVideo) {
-    for (const section of Object.entries(moduleObj)) {
-        return getCurrentVideoInSeconds(section, currentVideo)
-    }
-}
+                if (typeof sectionObj === 'object') {
+                    for (const section of Object.entries(sectionObj)) {
+                        for (const video of Object.entries(section[1])){
 
-function getCurrentVideoInSeconds(sectionObj, currentVideo) {
-    for (const video of Object.entries(sectionObj)) {
-        if (video[0] !== currentVideo) {
-            totalVideosWatched ++
-            totalSecondsWatched += timeToSeconds(video[1])
-        } else {
-            getTotalMinutesWatched(totalSecondsWatched)
-            getTotalVideosWatched(totalVideosWatched)
-            
-            // const totalHoursWatched = Math.ceil(totalMinutesWatched / 60)
-            // document.getElementById("videos-watched").textContent = `${totalVideosWatched}`
-            // document.getElementById("hours-watched").textContent = `${totalHoursWatched}`
-            // return totalSecondsWatched
-            // displayVideosWatched()
+                            if (typeof video[1] !== 'object') {
+                                totalVideosWatched ++
+                                totalSecondsWatched += timeToSeconds(video[1])
+                                if (video[0] === currentVideo) {
+                                    return
+                                }
+                            }
+
+                        }
+                    }
+                }
+
+            })
         }
     }
+    
+    getTotalMinutesWatched(totalSecondsWatched)
+    displayTotalVideosWatched(totalVideosWatched)
 }
 
 function timeToSeconds(currentTime) {
+    console.log(currentTime)
     const timeArr = currentTime.split(':')
     const minutes = Number(timeArr[0])
     let seconds = Number(timeArr[1])
@@ -194,47 +153,15 @@ function getTotalMinutesWatched(totalSecondsWatched) {
 
 function getTotalHoursWatched(totalMinutesWatched) {
     const totalHoursWatched = Math.ceil(totalMinutesWatched / 60)
-    displayVideosWatched(totalHoursWatched)
     displayHoursWatched(totalHoursWatched)
 
     return totalHoursWatched
 }
 
-function getTotalVideosWatched(totalVideosWatched) {
-    displayTotalVideosWatched(totalVideosWatched)
-}
-
-//display hours watched
-function displayVideosWatched(totalHoursWatched) {
-    document.getElementById("videos-watched").textContent = `${totalHoursWatched}`
-}
-
 function displayHoursWatched(totalHoursWatched) {
-    document.getElementById("time-watched").textContent = `${totalHoursWatched}`
+    document.getElementById("hours-watched").textContent = `${totalHoursWatched}`
 }
 
-//display total videos watched
 function displayTotalVideosWatched(getTotalVideosWatched) {
     document.getElementById("videos-watched").textContent = `${getTotalVideosWatched}`
-}
-
-//display time watched
-function displayTimeWatched(totalSecondsWatched, totalMinutesWatched, totalHoursWatched) {
-    //get location for time
-    document.getElementById("time-watched").innerHTML = `
-            <div class="watched-display-time">
-                <h4>Seconds</h4>
-                <p>${totalSecondsWatched}</p>
-            </div>
-
-            <div class="watched-display-time">
-                <h4>Minutes</h4>
-                <p>${totalMinutesWatched}</p>
-            </div>
-
-            <div class="watched-display-time">
-                <h4>Hours</h4>
-                <p>${totalHoursWatched}</p>
-            </div>
-        `
 }

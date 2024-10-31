@@ -183,11 +183,6 @@ hr {
     justify-content: space-between;
 }
 
-.watched div {
-    width: 49%;
-    height: 100%;
-}
-
 .watched-label {
     font-size: 20px;
 
@@ -204,10 +199,19 @@ hr {
     margin-top: 10px;
 }
 
+.watched-times {
+    display: flex;
+    gap: 1rem;
+}
+
+.watched-time-display {
+    width: 10rem;
+}
+
 /***MODAL***/
 /**SIGN UP**/
 
-.modal-wrapper{
+.modal-wrapper {
     position: fixed;
     top: 0;
     bottom:0;
@@ -434,8 +438,6 @@ select.modal-question {
     }
 
     .watched {
-        width: 50%;
-
         margin-top: 2rem;
         gap: 4rem;
     }
